@@ -8,6 +8,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from indicator_guide import indicator_markdown
+
 
 TASK_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = TASK_DIR / "data"
@@ -239,6 +241,9 @@ def write_report(latest: pd.DataFrame, missing: pd.DataFrame, desc: pd.DataFrame
         "## 数据整体画像",
         "本报告先用三类图表描述数据整体情况，再进入技术指标分析：",
         *[f"- `{path.name}`" for path in overview_chart_paths],
+        "",
+        "## 技术指标说明",
+        indicator_markdown(),
         "",
         "## 最新交易日指标",
         markdown_table(latest),

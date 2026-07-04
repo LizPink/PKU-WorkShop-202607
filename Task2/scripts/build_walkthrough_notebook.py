@@ -82,6 +82,7 @@ def build_notebook() -> dict[str, object]:
             from IPython.display import Image, display
 
             from build_site import build_site
+            from indicator_guide import INDICATOR_GUIDE
             from calculate_indicators import (
                 DATA_DIR,
                 OUTPUT_DIR,
@@ -159,12 +160,20 @@ def build_notebook() -> dict[str, object]:
         ),
         md(
             """
-            ### 4. 指标公式的最小理解
+            ### 4. 指标名称、计算公式和金融应用
 
-            - RSI 衡量上涨和下跌动量的相对强弱。
-            - MACD 比较短期 EMA 和长期 EMA 的差。
-            - 布林带用均线和滚动标准差描述价格波动区间。
-            - ATR 衡量真实波动幅度，不判断方向。
+            本 demo 里使用 4 个指标：RSI、MACD、布林带是任务要求，ATR 是扩展的波动率指标。
+            下面的表格拆成“名称、计算方法、金融应用、解读提醒”，用于把公式和金融含义对应起来。
+            """
+        ),
+        code(
+            """
+            pd.DataFrame(INDICATOR_GUIDE)
+            """
+        ),
+        md(
+            """
+            这些指标都不是单独的买卖指令。更稳妥的使用方式是：先看价格与成交量背景，再用 RSI/MACD 判断动量，用布林带观察价格是否处在波动区间边缘，用 ATR 衡量波动风险。
             """
         ),
         code(

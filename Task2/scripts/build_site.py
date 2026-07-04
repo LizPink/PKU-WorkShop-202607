@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+from html import escape
 from pathlib import Path
 
 import pandas as pd
+
+from indicator_guide import INDICATOR_GUIDE
 
 
 TASK_DIR = Path(__file__).resolve().parents[1]
@@ -12,6 +15,25 @@ WEB_DIR = TASK_DIR / "web"
 
 def table_html(df: pd.DataFrame) -> str:
     return df.to_html(index=False, classes="data-table", border=0, float_format=lambda x: f"{x:,.4f}")
+
+
+def indicator_table_html() -> str:
+    rows = "\n".join(
+        "<tr>"
+        f"<td>{escape(item['指标'])}</td>"
+        f"<td>{escape(item['名称'])}</td>"
+        f"<td>{escape(item['计算方法'])}</td>"
+        f"<td>{escape(item['金融应用'])}</td>"
+        f"<td>{escape(item['解读提醒'])}</td>"
+        "</tr>"
+        for item in INDICATOR_GUIDE
+    )
+    return f"""
+<table class="data-table indicator-table">
+  <thead><tr><th>指标</th><th>名称</th><th>计算方法</th><th>金融应用</th><th>解读提醒</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+"""
 
 
 def build_site() -> Path:
@@ -56,6 +78,7 @@ def build_site() -> Path:
     th, td {{ padding: 8px 10px; border-bottom: 1px solid #e6ebf2; text-align: right; }}
     th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) {{ text-align: left; }}
     th {{ background: #f1f5f9; }}
+    .indicator-table th, .indicator-table td {{ text-align: left; vertical-align: top; line-height: 1.55; }}
     @media (max-width: 820px) {{ .metrics {{ grid-template-columns: 1fr; }} }}
   </style>
 </head>
@@ -68,6 +91,7 @@ def build_site() -> Path:
       <div class="metric"><span class="label">图表数量</span><span class="value">{len(overview_charts) + len(technical_charts)}</span></div>
     </div>
     {overview_html}
+    <section><h2>技术指标说明</h2>{indicator_table_html()}</section>
     <section><h2>最新交易日指标</h2>{table_html(latest)}</section>
     {technical_html}
     <section><h2>描述性统计</h2>{table_html(desc)}</section>

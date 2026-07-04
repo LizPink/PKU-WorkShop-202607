@@ -20,6 +20,7 @@
     th, td { padding: 8px 10px; border-bottom: 1px solid #e6ebf2; text-align: right; }
     th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
     th { background: #f1f5f9; }
+    .indicator-table th, .indicator-table td { text-align: left; vertical-align: top; line-height: 1.55; }
     @media (max-width: 820px) { .metrics { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -34,6 +35,15 @@
     <section><h2>数据描述性统计图：缺失与特征分布</h2><img src="../outputs/data_description_overview.png" alt="数据描述性统计图：缺失与特征分布"></section>
 <section><h2>价格与成交量概览</h2><img src="../outputs/price_volume_overview.png" alt="价格与成交量概览"></section>
 <section><h2>日收益率分布图</h2><img src="../outputs/daily_return_distribution.png" alt="日收益率分布图"></section>
+    <section><h2>技术指标说明</h2>
+<table class="data-table indicator-table">
+  <thead><tr><th>指标</th><th>名称</th><th>计算方法</th><th>金融应用</th><th>解读提醒</th></tr></thead>
+  <tbody><tr><td>RSI</td><td>Relative Strength Index / 相对强弱指数</td><td>先计算每日收盘价变化，U=max(涨跌幅, 0)，D=max(-涨跌幅, 0)；RS=WilderAvg(U, 14)/WilderAvg(D, 14)；RSI=100-100/(1+RS)。</td><td>衡量上涨动能与下跌动能的相对强弱。常用 70 以上观察超买、30 以下观察超卖，也常配合价格背离判断动能衰减。</td><td>RSI 是动量指标，不是单独买卖信号。强趋势中 RSI 可以长时间维持高位或低位，需要结合趋势和成交量判断。</td></tr>
+<tr><td>MACD</td><td>Moving Average Convergence Divergence / 指数平滑异同移动平均线</td><td>EMA_n 使用 alpha=2/(n+1) 递推；DIF=EMA12(收盘价)-EMA26(收盘价)；Signal/DEA=EMA9(DIF)；本 demo 的柱状图= DIF-Signal。</td><td>识别趋势动量变化。常看 DIF 与 Signal 的金叉/死叉、零轴上方或下方的位置，以及价格与 MACD 的背离。</td><td>MACD 本质上来自移动平均，天然滞后；震荡行情里交叉信号容易反复。一些行情软件会把柱状图写成 2*(DIF-DEA)，本项目没有乘以 2。</td></tr>
+<tr><td>Bollinger Bands</td><td>布林带</td><td>中轨=SMA20(收盘价)；标准差=收盘价的 20 日滚动标准差；上轨=中轨+2*标准差；下轨=中轨-2*标准差。</td><td>用均线和波动率描述价格运行区间。带宽收窄常表示波动压缩，突破后可能进入趋势扩张；价格靠近上下轨可辅助观察短期偏热或偏冷。</td><td>触及上轨不等于必须卖出，触及下轨也不等于必须买入。趋势行情中价格可能沿上轨或下轨运行，需要结合方向和带宽变化。</td></tr>
+<tr><td>ATR</td><td>Average True Range / 平均真实波幅</td><td>TR=max(high-low, abs(high-前收盘), abs(low-前收盘))；ATR=WilderAvg(TR, 14)。</td><td>衡量价格波动幅度，常用于设置止损距离、比较不同股票的波动水平、辅助仓位管理。</td><td>ATR 只衡量波动大小，不判断涨跌方向。ATR 上升说明波动变大，但不代表一定上涨或下跌。</td></tr></tbody>
+</table>
+</section>
     <section><h2>最新交易日指标</h2><table class="dataframe data-table">
   <thead>
     <tr style="text-align: right;">
