@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PKU WorkShop 202607</title>
+  <style>
+    :root {
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --ink: #202426;
+      --muted: #687176;
+      --line: #d9dfd8;
+      --blue: #2868a8;
+      --gold: #b17912;
+      --teal: #287c78;
+      --rose: #b85b66;
+      --soft-blue: #e8f1f8;
+      --soft-gold: #f8efd9;
+      --shadow: 0 12px 34px rgba(32, 36, 38, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(232, 241, 248, 0.8), rgba(246, 247, 242, 0) 360px),
+        var(--bg);
+      letter-spacing: 0;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 34px 20px 44px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      padding: 8px 0 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.04;
+      font-weight: 780;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(32, 36, 38, 0.04);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 26px 0 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .task-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 18px;
+      min-height: 250px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .task-card:hover {
+      border-color: rgba(40, 104, 168, 0.45);
+      transform: translateY(-1px);
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 8px;
+      border-radius: 7px;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .pill.gold {
+      background: var(--soft-gold);
+      color: var(--gold);
+    }
+
+    .task-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .task-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .task-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .task-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fbfcf8;
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .preview {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 14px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f7fafc, #fbf8ef);
+      border: 1px solid #e2e7df;
+    }
+
+    .preview svg {
+      display: block;
+      width: 100%;
+      height: 118px;
+      overflow: visible;
+    }
+
+    .preview-stat {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .preview-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .preview-stat strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .note code {
+      color: var(--ink);
+      font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+      font-size: 0.94em;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .task-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 24px 14px 34px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head .subtitle {
+        margin-top: 8px;
+      }
+
+      .task-card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .preview {
+        min-height: 190px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>PKU WorkShop 202607</h1>
+        <p class="subtitle">课程项目展示入口。每个任务保存在独立文件夹中，根目录负责统一导航，便于 GitHub Pages 从站点首页访问各项成果。</p>
+      </div>
+      <span class="badge">GitHub Pages · main / root</span>
+    </header>
+
+    <section aria-labelledby="task-list-title">
+      <div class="section-head">
+        <div>
+          <h2 id="task-list-title">任务列表</h2>
+          <p class="subtitle">当前已发布 1 个任务，后续 Task2、Task3 可以继续按相同结构加入。</p>
+        </div>
+      </div>
+
+      <div class="task-grid">
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task1</span>
+              <span class="pill gold">A 股数据</span>
+            </div>
+            <h3>寒武纪每日收盘价展示</h3>
+            <p>基于 TuShare 获取寒武纪 A 股近一年交易日数据，保留未复权与前复权口径，并生成静态 HTML 曲线图与 CSV 数据文件。</p>
+            <div class="task-links" aria-label="Task1 资源">
+              <a class="task-link" href="Task1/web/">打开网页</a>
+              <a class="task-link" href="Task1/data/cambricon_688256_SH_daily_combined_20250704_20260704.csv">查看 CSV</a>
+              <a class="task-link" href="https://github.com/LizPink/PKU-WorkShop-202607/blob/main/Task1/Task1_process_walkthrough.ipynb">学习 notebook</a>
+            </div>
+          </div>
+
+          <div class="preview" aria-hidden="true">
+            <svg viewBox="0 0 220 118" role="img">
+              <line x1="12" y1="96" x2="208" y2="96" stroke="#cfd7cf" stroke-width="1"/>
+              <line x1="12" y1="24" x2="12" y2="96" stroke="#cfd7cf" stroke-width="1"/>
+              <path d="M12 91 C36 84 48 74 64 78 C82 82 92 62 110 57 C128 52 134 30 154 35 C172 40 180 18 195 30 C204 37 208 48 212 55" fill="none" stroke="#2868a8" stroke-width="3" stroke-linecap="round"/>
+              <path d="M12 99 C32 92 50 88 68 82 C84 77 96 67 112 61 C132 52 142 33 158 39 C176 45 185 27 198 36 C207 42 211 51 214 58" fill="none" stroke="#b17912" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="212" cy="55" r="4" fill="#2868a8" stroke="#fff" stroke-width="2"/>
+              <circle cx="214" cy="58" r="4" fill="#b17912" stroke="#fff" stroke-width="2"/>
+            </svg>
+            <div class="preview-stat">
+              <div>
+                <span>交易日</span>
+                <strong>242</strong>
+              </div>
+              <div>
+                <span>最新日</span>
+                <strong>2026-07-03</strong>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <p class="note">站点首页文件位于仓库根目录 <code>index.html</code>。各任务仍保存在自己的目录中，例如 <code>Task1/web/index.html</code>，所以后续新增 Task2、Task3 不会受到影响。</p>
+  </main>
+</body>
+</html>
