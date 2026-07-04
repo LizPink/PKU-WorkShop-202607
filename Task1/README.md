@@ -19,6 +19,7 @@ Task1/
   data/        # CSV 数据输出
   scripts/     # 数据获取与静态网页生成脚本
   web/         # 静态 HTML 展示文件
+  Task1_process_walkthrough.ipynb  # 流程复盘与学习 notebook
 ```
 
 ## 运行方式
@@ -46,6 +47,6 @@ TUSHARE_TOKEN=your_token_here
 - `data/cambricon_688256_SH_daily_qfq_20250704_20260704.csv`
 - `data/cambricon_688256_SH_daily_combined_20250704_20260704.csv`
 - `web/index.html`
+- `Task1_process_walkthrough.ipynb`
 
 打开 `web/index.html` 即可查看图表和数据表。
-
