@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task2 技术指标分析</title>
+  <style>
+    body { margin: 0; font-family: Arial, "Microsoft YaHei", sans-serif; color: #182230; background: #f6f7f9; }
+    header { background: #fff; border-bottom: 1px solid #d8dee9; padding: 24px 0; }
+    main, .wrap { width: min(1120px, calc(100vw - 32px)); margin: 0 auto; }
+    h1 { margin: 0; font-size: 30px; }
+    .sub { color: #5f6b7a; margin-top: 6px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }
+    .metric, section { background: #fff; border: 1px solid #d8dee9; border-radius: 8px; padding: 16px; }
+    .label { color: #5f6b7a; font-size: 12px; }
+    .value { display: block; font-size: 22px; font-weight: 700; margin-top: 6px; }
+    section { margin-bottom: 24px; overflow: auto; }
+    img { max-width: 100%; display: block; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
+    th, td { padding: 8px 10px; border-bottom: 1px solid #e6ebf2; text-align: right; }
+    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+    th { background: #f1f5f9; }
+    @media (max-width: 820px) { .metrics { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><h1>Task2 技术指标分析</h1><div class="sub">RSI、MACD、布林带与 ATR 的 demo 计算</div></div></header>
+  <main>
+    <div class="metrics">
+      <div class="metric"><span class="label">股票数量</span><span class="value">2</span></div>
+      <div class="metric"><span class="label">最新 RSI 均值</span><span class="value">56.02</span></div>
+      <div class="metric"><span class="label">图表数量</span><span class="value">2</span></div>
+    </div>
+    <section><h2>最新交易日指标</h2><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>stock_name</th>
+      <th>ts_code</th>
+      <th>trade_date</th>
+      <th>close</th>
+      <th>rsi_14</th>
+      <th>macd</th>
+      <th>macd_signal</th>
+      <th>bb_upper_20</th>
+      <th>bb_lower_20</th>
+      <th>atr_14</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>三一重工</td>
+      <td>600031.SH</td>
+      <td>2025-07-16</td>
+      <td>18.7100</td>
+      <td>55.6430</td>
+      <td>0.1559</td>
+      <td>0.0609</td>
+      <td>19.3031</td>
+      <td>17.2309</td>
+      <td>0.3254</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>000001.SZ</td>
+      <td>2025-07-17</td>
+      <td>12.5900</td>
+      <td>56.3944</td>
+      <td>0.2715</td>
+      <td>0.2900</td>
+      <td>13.2181</td>
+      <td>11.7169</td>
+      <td>0.2607</td>
+    </tr>
+  </tbody>
+</table></section>
+    <section><h2>000001_SZ</h2><img src="../outputs/000001_SZ_technical_indicators.png" alt="000001_SZ_technical_indicators"></section>
+<section><h2>600031_SH</h2><img src="../outputs/600031_SH_technical_indicators.png" alt="600031_SH_technical_indicators"></section>
+    <section><h2>描述性统计</h2><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>stock_name</th>
+      <th>column</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>三一重工</td>
+      <td>open</td>
+      <td>18.2441</td>
+      <td>1.3740</td>
+      <td>15.3100</td>
+      <td>20.5000</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>high</td>
+      <td>18.4633</td>
+      <td>1.3773</td>
+      <td>15.5400</td>
+      <td>20.7500</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>low</td>
+      <td>18.0376</td>
+      <td>1.3453</td>
+      <td>15.2300</td>
+      <td>20.2300</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>close</td>
+      <td>18.2549</td>
+      <td>1.3625</td>
+      <td>15.3100</td>
+      <td>20.5400</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>pre_close</td>
+      <td>18.2348</td>
+      <td>1.3713</td>
+      <td>15.3100</td>
+      <td>20.5400</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>change</td>
+      <td>0.0201</td>
+      <td>0.3030</td>
+      <td>-1.1000</td>
+      <td>0.9900</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>pct_chg</td>
+      <td>0.1279</td>
+      <td>1.6795</td>
+      <td>-5.7592</td>
+      <td>6.2817</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>vol</td>
+      <td>612,098.4864</td>
+      <td>340,872.8182</td>
+      <td>222,382.5400</td>
+      <td>2,198,570.1100</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>amount</td>
+      <td>1,127,768.7695</td>
+      <td>673,495.4033</td>
+      <td>388,409.7680</td>
+      <td>4,353,081.5270</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>open</td>
+      <td>10.9382</td>
+      <td>0.8440</td>
+      <td>9.0500</td>
+      <td>13.4300</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>high</td>
+      <td>11.0498</td>
+      <td>0.8554</td>
+      <td>9.1800</td>
+      <td>13.4300</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>low</td>
+      <td>10.8537</td>
+      <td>0.8300</td>
+      <td>8.9600</td>
+      <td>12.8900</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>close</td>
+      <td>10.9542</td>
+      <td>0.8367</td>
+      <td>9.0900</td>
+      <td>13.1800</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>pre_close</td>
+      <td>10.9420</td>
+      <td>0.8361</td>
+      <td>9.0900</td>
+      <td>13.1800</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>change</td>
+      <td>0.0122</td>
+      <td>0.1658</td>
+      <td>-1.2000</td>
+      <td>0.9800</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>pct_chg</td>
+      <td>0.1225</td>
+      <td>1.4856</td>
+      <td>-9.3168</td>
+      <td>9.9796</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>vol</td>
+      <td>1,320,700.0347</td>
+      <td>753,730.3443</td>
+      <td>353,013.4600</td>
+      <td>5,888,977.7800</td>
+    </tr>
+    <tr>
+      <td>平安集团</td>
+      <td>amount</td>
+      <td>1,458,609.3165</td>
+      <td>883,746.6615</td>
+      <td>353,251.3510</td>
+      <td>7,602,664.0240</td>
+    </tr>
+  </tbody>
+</table></section>
+  </main>
+</body>
+</html>
