@@ -6,6 +6,12 @@
 3. 基于收盘价与 OHLC 数据计算 RSI、MACD、布林带和 ATR。
 4. 输出指标 CSV、图表 PNG、Markdown 报告，并由 `build_site.py` 生成网页。
 
+## 数据整体画像
+本报告先用三类图表描述数据整体情况，再进入技术指标分析：
+- `data_description_overview.png`
+- `price_volume_overview.png`
+- `daily_return_distribution.png`
+
 ## 最新交易日指标
 | stock_name | ts_code | trade_date | close | rsi_14 | macd | macd_signal | bb_upper_20 | bb_lower_20 | atr_14 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -18,12 +18,21 @@ def build_site() -> Path:
     WEB_DIR.mkdir(exist_ok=True)
     latest = pd.read_csv(OUTPUT_DIR / "latest_indicator_snapshot.csv")
     diagnostics = pd.read_csv(OUTPUT_DIR / "diagnostics_summary.csv")
-    charts = sorted(OUTPUT_DIR.glob("*_technical_indicators.png"))
+    overview_charts = [
+        ("数据描述性统计图：缺失与特征分布", "data_description_overview.png"),
+        ("价格与成交量概览", "price_volume_overview.png"),
+        ("日收益率分布图", "daily_return_distribution.png"),
+    ]
+    technical_charts = sorted(OUTPUT_DIR.glob("*_technical_indicators.png"))
 
     desc = diagnostics[["stock_name", "column", "mean", "std", "min", "max"]].round(4)
-    chart_html = "\n".join(
+    overview_html = "\n".join(
+        f'<section><h2>{title}</h2><img src="../outputs/{filename}" alt="{title}"></section>'
+        for title, filename in overview_charts
+    )
+    technical_html = "\n".join(
         f'<section><h2>{path.stem.replace("_technical_indicators", "")}</h2><img src="../outputs/{path.name}" alt="{path.stem}"></section>'
-        for path in charts
+        for path in technical_charts
     )
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -51,15 +60,16 @@ def build_site() -> Path:
   </style>
 </head>
 <body>
-  <header><div class="wrap"><h1>Task2 技术指标分析</h1><div class="sub">RSI、MACD、布林带与 ATR 的 demo 计算</div></div></header>
+  <header><div class="wrap"><h1>Task2 技术指标分析</h1><div class="sub">先看数据整体画像，再进入 RSI、MACD、布林带与 ATR</div></div></header>
   <main>
     <div class="metrics">
       <div class="metric"><span class="label">股票数量</span><span class="value">{len(latest)}</span></div>
       <div class="metric"><span class="label">最新 RSI 均值</span><span class="value">{latest["rsi_14"].mean():.2f}</span></div>
-      <div class="metric"><span class="label">图表数量</span><span class="value">{len(charts)}</span></div>
+      <div class="metric"><span class="label">图表数量</span><span class="value">{len(overview_charts) + len(technical_charts)}</span></div>
     </div>
+    {overview_html}
     <section><h2>最新交易日指标</h2>{table_html(latest)}</section>
-    {chart_html}
+    {technical_html}
     <section><h2>描述性统计</h2>{table_html(desc)}</section>
   </main>
 </body>

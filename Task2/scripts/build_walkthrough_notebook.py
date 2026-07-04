@@ -46,9 +46,10 @@ def build_notebook() -> dict[str, object]:
             目标是把两个本地股票 CSV 做成一个技术指标 demo：
 
             1. 检查缺失值和描述性统计量。
-            2. 计算 RSI、MACD、布林带和 ATR。
-            3. 用 matplotlib 绘制指标图。
-            4. 生成 `outputs/` 和 `web/index.html`。
+            2. 绘制三类整体数据画像：缺失/特征分布、价格成交量、日收益率分布。
+            3. 计算 RSI、MACD、布林带和 ATR。
+            4. 用 matplotlib 绘制指标图。
+            5. 生成 `outputs/` 和 `web/index.html`。
             """
         ),
         md(
@@ -78,8 +79,20 @@ def build_notebook() -> dict[str, object]:
             if str(SCRIPTS) not in sys.path:
                 sys.path.insert(0, str(SCRIPTS))
 
+            from IPython.display import Image, display
+
             from build_site import build_site
-            from calculate_indicators import DATA_DIR, add_indicators, load_prices, run
+            from calculate_indicators import (
+                DATA_DIR,
+                OUTPUT_DIR,
+                add_indicators,
+                diagnostics,
+                load_prices,
+                plot_data_description,
+                plot_price_volume,
+                plot_return_distribution,
+                run,
+            )
             """
         ),
         md(
@@ -121,7 +134,32 @@ def build_notebook() -> dict[str, object]:
         ),
         md(
             """
-            ### 3. 指标公式的最小理解
+            ### 3. 绘制整体数据画像
+
+            这里放三类图：缺失和主要特征分布、价格与成交量概览、日收益率分布。它们用于在技术指标之前先理解数据本身。
+            """
+        ),
+        code(
+            """
+            frame_items = [{"name": name, "data": frame} for name, frame in frames.items()]
+            missing_detail = pd.concat([diagnostics(name, frame)[0] for name, frame in frames.items()], ignore_index=True)
+            overview_paths = [
+                OUTPUT_DIR / "data_description_overview.png",
+                OUTPUT_DIR / "price_volume_overview.png",
+                OUTPUT_DIR / "daily_return_distribution.png",
+            ]
+
+            plot_data_description(frame_items, missing_detail, overview_paths[0])
+            plot_price_volume(frame_items, overview_paths[1])
+            plot_return_distribution(frame_items, overview_paths[2])
+
+            for path in overview_paths:
+                display(Image(filename=str(path)))
+            """
+        ),
+        md(
+            """
+            ### 4. 指标公式的最小理解
 
             - RSI 衡量上涨和下跌动量的相对强弱。
             - MACD 比较短期 EMA 和长期 EMA 的差。
@@ -137,7 +175,7 @@ def build_notebook() -> dict[str, object]:
         ),
         md(
             """
-            ### 4. 用几行代码画一个核心图
+            ### 5. 用几行代码画一个核心图
 
             完整图表在 `calculate_indicators.py` 中生成。这里展示“收盘价 + 布林带”的核心。
             """
@@ -157,7 +195,7 @@ def build_notebook() -> dict[str, object]:
         ),
         md(
             """
-            ### 5. 一键生成交付文件
+            ### 6. 一键生成交付文件
 
             `run()` 负责指标和图表，`build_site()` 负责网页。
             """
@@ -179,7 +217,7 @@ def build_notebook() -> dict[str, object]:
         code(
             """
             assert html_path.exists()
-            for path in result["indicator_paths"] + result["chart_paths"]:
+            for path in result["indicator_paths"] + result["chart_paths"] + result["overview_chart_paths"]:
                 assert path.exists() and path.stat().st_size > 0
             "Task2 walkthrough checks passed"
             """
