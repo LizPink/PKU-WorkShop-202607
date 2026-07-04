@@ -282,7 +282,7 @@
       <div class="section-head">
         <div>
           <h2 id="task-list-title">任务列表</h2>
-          <p class="subtitle">当前已发布 1 个任务，后续 Task2、Task3 可以继续按相同结构加入。</p>
+          <p class="subtitle">当前已发布 2 个任务，后续 Task3 可以继续按相同结构加入。</p>
         </div>
       </div>
 
@@ -323,10 +323,53 @@
             </div>
           </div>
         </article>
+
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task2</span>
+              <span class="pill gold">技术指标</span>
+            </div>
+            <h3>双股票技术指标分析</h3>
+            <p>基于本地 CSV 行情数据，完成缺失值诊断、描述性统计，并计算 RSI、MACD、布林带和 ATR，生成指标图、结果表和静态网页。</p>
+            <div class="task-links" aria-label="Task2 资源">
+              <a class="task-link" href="Task2/web/">打开网页</a>
+              <a class="task-link" href="Task2/outputs/latest_indicator_snapshot.csv">查看指标快照</a>
+              <a class="task-link" href="https://github.com/LizPink/PKU-WorkShop-202607/blob/main/Task2/Task2_process_walkthrough.ipynb">学习 notebook</a>
+            </div>
+          </div>
+
+          <div class="preview" aria-hidden="true">
+            <svg viewBox="0 0 220 118" role="img">
+              <line x1="12" y1="96" x2="208" y2="96" stroke="#cfd7cf" stroke-width="1"/>
+              <line x1="12" y1="24" x2="12" y2="96" stroke="#cfd7cf" stroke-width="1"/>
+              <path d="M12 80 C30 76 44 67 60 72 C78 78 88 50 106 55 C126 61 136 36 154 42 C174 48 184 30 204 38" fill="none" stroke="#287c78" stroke-width="3" stroke-linecap="round"/>
+              <path d="M12 42 C28 39 44 44 60 38 C78 32 88 46 106 41 C124 35 142 42 158 36 C176 31 190 37 204 34" fill="none" stroke="#b85b66" stroke-width="2.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+              <rect x="18" y="88" width="10" height="8" fill="#287c78" opacity="0.45"/>
+              <rect x="42" y="84" width="10" height="12" fill="#287c78" opacity="0.45"/>
+              <rect x="66" y="90" width="10" height="6" fill="#b85b66" opacity="0.45"/>
+              <rect x="90" y="78" width="10" height="18" fill="#287c78" opacity="0.45"/>
+              <rect x="114" y="82" width="10" height="14" fill="#287c78" opacity="0.45"/>
+              <rect x="138" y="86" width="10" height="10" fill="#b85b66" opacity="0.45"/>
+              <rect x="162" y="72" width="10" height="24" fill="#287c78" opacity="0.45"/>
+              <rect x="186" y="76" width="10" height="20" fill="#287c78" opacity="0.45"/>
+            </svg>
+            <div class="preview-stat">
+              <div>
+                <span>股票数</span>
+                <strong>2</strong>
+              </div>
+              <div>
+                <span>指标</span>
+                <strong>RSI / MACD</strong>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <p class="note">站点首页文件位于仓库根目录 <code>index.html</code>。各任务仍保存在自己的目录中，例如 <code>Task1/web/index.html</code>，所以后续新增 Task2、Task3 不会受到影响。</p>
+    <p class="note">站点首页文件位于仓库根目录 <code>index.html</code>。各任务仍保存在自己的目录中，例如 <code>Task1/web/index.html</code> 和 <code>Task2/web/index.html</code>，所以后续新增 Task3 不会受到影响。</p>
   </main>
 </body>
 </html>

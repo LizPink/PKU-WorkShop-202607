@@ -1,0 +1,19 @@
+[project]
+name = "pku-workshop-202607"
+version = "0.1.0"
+description = "PKU workshop demos for A-share data fetching and technical indicator analysis."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.11.0",
+    "pandas>=3.0.3",
+    "tushare>=1.4.29",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+    "nbclient>=0.10.2",
+    "nbconvert>=7.17.1",
+    "nbformat>=5.10.4",
+]
