@@ -1,11 +1,9 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>PKU Workshop 202607｜量化交易任务集</title>
-  <style>
+from __future__ import annotations
+
+from html import escape
+
+
+WORKSHOP_CSS = """
 :root {
   --ink:#172033;
   --muted:#64748b;
@@ -99,61 +97,62 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-</style>
+"""
+
+
+TASKS = (
+    ("TASK1", "../../Task1/web/index.html"),
+    ("TASK2", "../../Task2/web/index.html"),
+    ("TASK3", "../../Task3/web/index.html"),
+    ("TASK4", "../../Task4/web/index.html"),
+)
+
+
+def task_navigation(current_task: int, *, root_prefix: str = "../..") -> str:
+    links = []
+    for index, (label, href) in enumerate(TASKS, start=1):
+        normalized_href = href.removeprefix("../..")
+        href = f"{root_prefix}{normalized_href}" if root_prefix else normalized_href.lstrip("/")
+        active = ' class="active" aria-current="page"' if index == current_task else ""
+        links.append(f'<a href="{href}"{active}>{label}</a>')
+    return (
+        '<nav class="task-nav" aria-label="工作坊任务导航">'
+        '<div class="brand">PKU Workshop · Quantitative Trading</div>'
+        f'<div class="nav-links">{"".join(links)}</div>'
+        '</nav>'
+    )
+
+
+def render_page(
+    *,
+    current_task: int,
+    document_title: str,
+    hero_title: str,
+    hero_subtitle: str,
+    body_html: str,
+    footer_text: str,
+) -> str:
+    task_label = f"PKU WORKSHOP · TASK{current_task}"
+    return f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>{escape(document_title)}</title>
+  <style>{WORKSHOP_CSS}</style>
 </head>
 <body>
-  <header class="hero"><div class="wrap">
-    <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="Task1/web/index.html">TASK1</a><a href="Task2/web/index.html">TASK2</a><a href="Task3/web/index.html">TASK3</a><a href="Task4/web/index.html">TASK4</a></div></nav>
-    <div class="tag">PKU WORKSHOP · 202607</div>
-    <h1>量化交易工作坊<br>从数据到策略与风控</h1>
-    <p>四个逐步递进的任务：行情数据引擎、数据诊断与指标、双均线策略，以及海龟交易法则。</p>
-  </div></header>
-  <main>
-    <div class="wrap metrics">
-      <div class="metric"><span>课程任务</span><strong>4 个</strong></div>
-      <div class="metric"><span>数据与诊断</span><strong>Task1–2</strong></div>
-      <div class="metric"><span>策略与回测</span><strong>Task3–4</strong></div>
-      <div class="metric"><span>统一交付</span><strong>Web + Notebook</strong></div>
+  <header class="hero">
+    <div class="wrap">
+      {task_navigation(current_task)}
+      <div class="tag">{task_label}</div>
+      <h1>{hero_title}</h1>
+      <p>{escape(hero_subtitle)}</p>
     </div>
-    <section><div class="wrap"><h2>学习路径</h2><p class="section-lede">从可靠行情数据出发，逐步完成指标构建、趋势策略和风险控制。</p><div class="grid two"><article class="card">
-              <span class="tag">TASK1 · 数据引擎</span>
-              <h3>寒武纪行情获取与复权处理</h3>
-              <p>从行情接口到本地CSV快照，统一日期、价格、成交量与前复权序列。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task1/web/index.html">打开网页</a>
-                <a class="pill" href="Task1/Task1_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
-            </article><article class="card">
-              <span class="tag">TASK2 · 指标诊断</span>
-              <h3>数据诊断与技术指标构建</h3>
-              <p>检查数据质量与分布，计算RSI、MACD、布林带和ATR。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task2/web/index.html">打开网页</a>
-                <a class="pill" href="Task2/Task2_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
-            </article><article class="card">
-              <span class="tag">TASK3 · 趋势策略</span>
-              <h3>双均线策略与跨行业回测</h3>
-              <p>使用金叉、死叉构建趋势跟踪策略，并比较股票、行业和均线参数。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task3/web/index.html">打开网页</a>
-                <a class="pill" href="Task3/Task3_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
-            </article><article class="card">
-              <span class="tag">TASK4 · 风险控制</span>
-              <h3>海龟交易策略与参数研究</h3>
-              <p>结合高低点通道、Wilder ATR、风险定仓和止损完成样本外回测。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task4/web/index.html">打开网页</a>
-                <a class="pill" href="Task4/Task4_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
-            </article></div></div></section>
-    <section><div class="wrap"><h2>统一的研究口径</h2><div class="grid">
-      <article class="card"><h3>可复现</h3><p>每个任务保留代码、数据快照、Notebook、图表和静态网页，可从本地重新生成。</p></article>
-      <article class="card"><h3>防止前视偏差</h3><p>策略信号使用已知历史信息，并将普通收盘信号错后一交易日执行。</p></article>
-      <article class="card"><h3>收益与风险并重</h3><p>同时观察累计回报、最大回撤、夏普比率、交易成本和买入持有基准。</p></article>
-    </div><p class="note">本项目用于课程教学和研究演示，不构成投资建议。</p></div></section>
-    </main>
-  <footer><div class="wrap">PKU Workshop 202607｜Python / pandas / Matplotlib｜GitHub Pages 静态成果入口</div></footer>
+  </header>
+  <main>{body_html}</main>
+  <footer><div class="wrap">{escape(footer_text)}</div></footer>
 </body>
 </html>
+"""

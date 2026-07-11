@@ -2,10 +2,18 @@ from __future__ import annotations
 
 from html import escape
 from pathlib import Path
+import sys
 
 import pandas as pd
 
 from indicator_guide import INDICATOR_GUIDE
+
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
+
+from workshop_web_theme import render_page
 
 
 TASK_DIR = Path(__file__).resolve().parents[1]
@@ -49,56 +57,42 @@ def build_site() -> Path:
 
     desc = diagnostics[["stock_name", "column", "mean", "std", "min", "max"]].round(4)
     overview_html = "\n".join(
-        f'<section><h2>{title}</h2><img src="../outputs/{filename}" alt="{title}"></section>'
+        f'<article class="figure"><h3>{title}</h3><a href="../outputs/{filename}" target="_blank" rel="noopener"><img src="../outputs/{filename}" alt="{title}"></a></article>'
         for title, filename in overview_charts
     )
     technical_html = "\n".join(
-        f'<section><h2>{path.stem.replace("_technical_indicators", "")}</h2><img src="../outputs/{path.name}" alt="{path.stem}"></section>'
+        f'<article class="chart-card"><div class="chart-copy"><span class="tag">技术指标</span><h3>{path.stem.replace("_technical_indicators", "")}</h3></div><a href="../outputs/{path.name}" target="_blank" rel="noopener"><img src="../outputs/{path.name}" alt="{path.stem}"></a></article>'
         for path in technical_charts
     )
-    html = f"""<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Task2 技术指标分析</title>
-  <style>
-    body {{ margin: 0; font-family: Arial, "Microsoft YaHei", sans-serif; color: #182230; background: #f6f7f9; }}
-    header {{ background: #fff; border-bottom: 1px solid #d8dee9; padding: 24px 0; }}
-    main, .wrap {{ width: min(1120px, calc(100vw - 32px)); margin: 0 auto; }}
-    h1 {{ margin: 0; font-size: 30px; }}
-    .sub {{ color: #5f6b7a; margin-top: 6px; }}
-    .metrics {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }}
-    .metric, section {{ background: #fff; border: 1px solid #d8dee9; border-radius: 8px; padding: 16px; }}
-    .label {{ color: #5f6b7a; font-size: 12px; }}
-    .value {{ display: block; font-size: 22px; font-weight: 700; margin-top: 6px; }}
-    section {{ margin-bottom: 24px; overflow: auto; }}
-    img {{ max-width: 100%; display: block; }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }}
-    th, td {{ padding: 8px 10px; border-bottom: 1px solid #e6ebf2; text-align: right; }}
-    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) {{ text-align: left; }}
-    th {{ background: #f1f5f9; }}
-    .indicator-table th, .indicator-table td {{ text-align: left; vertical-align: top; line-height: 1.55; }}
-    @media (max-width: 820px) {{ .metrics {{ grid-template-columns: 1fr; }} }}
-  </style>
-</head>
-<body>
-  <header><div class="wrap"><h1>Task2 技术指标分析</h1><div class="sub">先看数据整体画像，再进入 RSI、MACD、布林带与 ATR</div></div></header>
-  <main>
-    <div class="metrics">
-      <div class="metric"><span class="label">股票数量</span><span class="value">{len(latest)}</span></div>
-      <div class="metric"><span class="label">最新 RSI 均值</span><span class="value">{latest["rsi_14"].mean():.2f}</span></div>
-      <div class="metric"><span class="label">图表数量</span><span class="value">{len(overview_charts) + len(technical_charts)}</span></div>
+    latest_date = str(latest["trade_date"].max()) if "trade_date" in latest.columns else "—"
+    body = f"""
+    <div class="wrap metrics">
+      <div class="metric"><span>股票数量</span><strong>{len(latest)} 只</strong></div>
+      <div class="metric"><span>最新 RSI 均值</span><strong>{latest["rsi_14"].mean():.2f}</strong></div>
+      <div class="metric"><span>分析图表</span><strong>{len(overview_charts) + len(technical_charts)} 张</strong></div>
+      <div class="metric"><span>最新交易日</span><strong>{escape(latest_date)}</strong></div>
     </div>
-    {overview_html}
-    <section><h2>技术指标说明</h2>{indicator_table_html()}</section>
-    <section><h2>最新交易日指标</h2>{table_html(latest)}</section>
-    {technical_html}
-    <section><h2>描述性统计</h2>{table_html(desc)}</section>
-  </main>
-</body>
-</html>
-"""
+    <section><div class="wrap"><h2>从数据画像到交易指标</h2><div class="grid">
+      <article class="card"><h3>趋势</h3><p>MACD 与布林带帮助观察方向、动量和价格相对区间。</p></article>
+      <article class="card"><h3>超买超卖</h3><p>RSI 将近期涨跌强弱压缩到 0–100，便于识别极端状态。</p></article>
+      <article class="card"><h3>波动风险</h3><p>ATR 使用真实波幅衡量正常波动，为止损和风险定仓提供尺度。</p></article>
+    </div></div></section>
+    <section><div class="wrap"><h2>数据整体画像</h2><p class="section-lede">先确认缺失、分布、价格、成交量和日收益率，再解读技术指标。</p><div class="figure-grid">{overview_html}</div></div></section>
+    <section><div class="wrap"><h2>技术指标说明</h2><div class="table-shell">{indicator_table_html()}</div></div></section>
+    <section><div class="wrap"><h2>最新交易日指标</h2><div class="table-shell">{table_html(latest)}</div></div></section>
+    <section><div class="wrap"><h2>逐股技术指标图</h2><div class="chart-list">{technical_html}</div></div></section>
+    <section><div class="wrap"><h2>描述性统计</h2><div class="table-shell">{table_html(desc)}</div>
+      <p class="note"><strong>解读提醒：</strong>任何单一指标都不能独立构成交易结论，应结合趋势、波动、价格位置和数据质量共同判断。</p>
+    </div></section>
+    """
+    html = render_page(
+        current_task=2,
+        document_title="Task2｜数据诊断与技术指标",
+        hero_title="指标进阶：从数据诊断<br>到趋势与波动",
+        hero_subtitle="先检查数据质量和分布，再构建 RSI、MACD、布林带与 ATR，为策略研究建立可靠指标层。",
+        body_html=body,
+        footer_text="数据：本地行情快照｜指标：RSI / MACD / Bollinger Bands / ATR｜Task2 可通过 run_all.py 一键复现",
+    )
     output = WEB_DIR / "index.html"
     output.write_text(html, encoding="utf-8")
     return output

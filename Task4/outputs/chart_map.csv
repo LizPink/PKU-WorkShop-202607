@@ -1,0 +1,5 @@
+﻿section,question,family,chart_type,fields,takeaway,palette,artifact
+默认参数,默认策略的样本外累计回报如何,comparison,horizontal bar,"stock_name,cumulative_return",比较策略的跨股票差异,blue + orange signed,default_parameter_returns.png
+参数敏感性,参数表现是否跨股票稳定,matrix,heatmap,"stock_name,parameter,sharpe_ratio",识别参数与股票的交互差异,blue + orange diverging,stock_parameter_sharpe_heatmap.png
+行业适应性,行业层面的参数中位表现如何,matrix,heatmap,"industry,parameter,median_sharpe_ratio",观察行业间稳健性,blue + orange diverging,industry_parameter_sharpe_heatmap.png
+风险收益,默认参数的收益与回撤如何权衡,relationship,scatter,"stock_name,industry,cumulative_return,max_drawdown",左上方股票风险收益更优,five-category,risk_return_scatter.png

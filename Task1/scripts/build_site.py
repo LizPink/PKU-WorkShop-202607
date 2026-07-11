@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
+
+
+WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
+
+from workshop_web_theme import render_page
 
 
 TASK_DIR = Path(__file__).resolve().parents[1]
@@ -59,47 +67,44 @@ def plot_price(df: pd.DataFrame, output: Path) -> None:
 
 def write_html(df: pd.DataFrame, summary: dict[str, object], chart_name: str, output: Path) -> None:
     recent = df[["date", "close", "qfq_close", "pct_chg", "vol", "amount"]].tail(12)
+    recent = recent.rename(
+        columns={
+            "date": "日期",
+            "close": "未复权收盘价",
+            "qfq_close": "前复权收盘价",
+            "pct_chg": "涨跌幅（%）",
+            "vol": "成交量",
+            "amount": "成交额",
+        }
+    )
     table_html = recent.to_html(index=False, classes="data-table", border=0, float_format=lambda x: f"{x:,.2f}")
-    html = f"""<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Task1 寒武纪行情展示</title>
-  <style>
-    body {{ margin: 0; font-family: Arial, "Microsoft YaHei", sans-serif; color: #182230; background: #f6f7f9; }}
-    header {{ background: #fff; border-bottom: 1px solid #d8dee9; padding: 24px 0; }}
-    main, .wrap {{ width: min(1100px, calc(100vw - 32px)); margin: 0 auto; }}
-    h1 {{ margin: 0; font-size: 30px; }}
-    .sub {{ color: #5f6b7a; margin-top: 6px; }}
-    .metrics {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }}
-    .metric, section {{ background: #fff; border: 1px solid #d8dee9; border-radius: 8px; padding: 16px; }}
-    .label {{ color: #5f6b7a; font-size: 12px; }}
-    .value {{ display: block; font-size: 22px; font-weight: 700; margin-top: 6px; }}
-    section {{ margin-bottom: 24px; overflow: auto; }}
-    img {{ max-width: 100%; display: block; }}
-    table {{ width: 100%; border-collapse: collapse; font-size: 13px; min-width: 720px; }}
-    th, td {{ padding: 8px 10px; border-bottom: 1px solid #e6ebf2; text-align: right; }}
-    th:first-child, td:first-child {{ text-align: left; }}
-    th {{ background: #f1f5f9; }}
-    @media (max-width: 820px) {{ .metrics {{ grid-template-columns: 1fr 1fr; }} }}
-  </style>
-</head>
-<body>
-  <header><div class="wrap"><h1>Task1 寒武纪 A 股行情展示</h1><div class="sub">未复权与前复权收盘价对比</div></div></header>
-  <main>
-    <div class="metrics">
-      <div class="metric"><span class="label">交易日数量</span><span class="value">{summary["rows"]}</span></div>
-      <div class="metric"><span class="label">数据区间</span><span class="value">{summary["start"]} 至 {summary["end"]}</span></div>
-      <div class="metric"><span class="label">最新收盘价</span><span class="value">{summary["latest_close"]:.2f}</span></div>
-      <div class="metric"><span class="label">区间前复权收益</span><span class="value">{summary["qfq_return"]:.2%}</span></div>
+    body = f"""
+    <div class="wrap metrics">
+      <div class="metric"><span>交易日数量</span><strong>{summary["rows"]}</strong></div>
+      <div class="metric"><span>数据区间</span><strong>{summary["start"]}<br><small>至 {summary["end"]}</small></strong></div>
+      <div class="metric"><span>最新收盘价</span><strong>{summary["latest_close"]:.2f} 元</strong></div>
+      <div class="metric"><span>区间前复权收益</span><strong>{summary["qfq_return"]:.2%}</strong></div>
     </div>
-    <section><h2>价格走势</h2><img src="{chart_name}" alt="寒武纪收盘价走势"></section>
-    <section><h2>最近 12 个交易日</h2>{table_html}</section>
-  </main>
-</body>
-</html>
-"""
+    <section><div class="wrap"><h2>数据引擎的三个关键点</h2><div class="grid">
+      <article class="card"><h3>行情获取</h3><p>从数据接口获取寒武纪日线行情，并保存可追溯的本地 CSV 快照。</p></article>
+      <article class="card"><h3>前复权处理</h3><p>使用复权因子消除除权除息造成的机械跳空，更适合比较连续收益路径。</p></article>
+      <article class="card"><h3>标准化输出</h3><p>统一日期、OHLC、成交量和成交额字段，为后续指标与策略回测提供输入。</p></article>
+    </div></div></section>
+    <section><div class="wrap"><h2>价格走势</h2><p class="section-lede">未复权价格保留历史真实报价，前复权价格保持收益序列连续。点击图表可查看原图。</p>
+      <article class="figure"><a href="{chart_name}" target="_blank" rel="noopener"><img src="{chart_name}" alt="寒武纪未复权与前复权收盘价走势"></a></article>
+    </div></section>
+    <section><div class="wrap"><h2>最近 12 个交易日</h2><div class="table-shell">{table_html}</div>
+      <p class="note blue"><strong>阅读提示：</strong>前复权序列用于连续收益分析；研究实际成交价格时仍应保留未复权行情。</p>
+    </div></section>
+    """
+    html = render_page(
+        current_task=1,
+        document_title="Task1｜量化交易数据引擎",
+        hero_title="数据启航：寒武纪<br>行情获取与复权处理",
+        hero_subtitle="从行情接口到本地数据快照，完成日期、价格、成交量与前复权序列的标准化整理。",
+        body_html=body,
+        footer_text="数据：寒武纪 A 股日线本地快照｜处理：Python / pandas｜Task1 可通过 run_all.py 一键复现",
+    )
     output.write_text(html, encoding="utf-8")
 
 

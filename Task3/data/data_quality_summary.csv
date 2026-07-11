@@ -1,0 +1,11 @@
+﻿ts_code,stock_name,industry,requested_start,requested_end,actual_start,actual_end,rows,duplicate_dates,missing_required_values,invalid_ohlc_rows,source,is_usable
+000001.SZ,平安银行,银行,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro: daily + adj_factor,True
+600036.SH,招商银行,银行,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily 日期校验 + 东方财富前复权行情,True
+600519.SH,贵州茅台,食品饮料,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily 日期校验 + 东方财富前复权行情,True
+000858.SZ,五粮液,食品饮料,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily 日期校验 + 东方财富前复权行情,True
+002594.SZ,比亚迪,新能源汽车,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily 日期校验 + 东方财富前复权行情,True
+300750.SZ,宁德时代,新能源汽车,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily 日期校验 + 东方财富前复权行情,True
+002371.SZ,北方华创,半导体,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily + TuShare legacy qfq,True
+600584.SH,长电科技,半导体,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1818,0,0,0,TuShare Pro daily + TuShare legacy qfq,True
+600031.SH,三一重工,工程机械,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1823,0,0,0,TuShare Pro daily + TuShare legacy qfq,True
+000425.SZ,徐工机械,工程机械,2019-01-01,2026-07-10,2019-01-02,2026-07-10,1800,0,0,0,TuShare Pro daily + TuShare legacy qfq,True
