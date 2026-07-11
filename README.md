@@ -1,12 +1,14 @@
 # PKU Workshop 202607 Demo
 
-这个工作区包含两个小型金融数据 demo，统一用根目录 `pyproject.toml` 和 `uv.lock` 管理环境。
+这个工作区包含四个逐步递进的量化交易任务，统一用根目录 `pyproject.toml` 和 `uv.lock` 管理环境。
 
 ## 项目结构
 
 ```text
 Task1/  # TuShare 获取寒武纪行情，计算前复权价格并生成网页
 Task2/  # 基于本地 CSV 计算 RSI、MACD、布林带、ATR 并生成网页
+Task3/  # 跨行业股票双均线策略、回测、参数比较、Notebook 与网页
+Task4/  # 海龟交易策略、ATR风险定仓、止损、参数研究与网页
 ```
 
 ## 运行环境
@@ -42,9 +44,29 @@ Task2 重新生成指标、图表和网页：
 uv run python .\Task2\scripts\run_all.py
 ```
 
-重新生成两个教学 notebook：
+Task3 首次抓取跨行业行情并生成完整回测：
+
+```powershell
+uv run python .\Task3\scripts\run_all.py --force-fetch
+```
+
+Task3 使用本地行情快照重建结果：
+
+```powershell
+uv run python .\Task3\scripts\run_all.py --skip-fetch
+```
+
+Task4 使用 Task3 的本地行情快照重建海龟策略结果：
+
+```powershell
+uv --cache-dir .uv-cache run python .\Task4\scripts\run_all.py
+```
+
+重新生成教学 notebook：
 
 ```powershell
 uv run python .\Task1\scripts\build_walkthrough_notebook.py
 uv run python .\Task2\scripts\build_walkthrough_notebook.py
+uv run python .\Task3\scripts\build_walkthrough_notebook.py
+uv run python .\Task4\scripts\build_walkthrough_notebook.py
 ```

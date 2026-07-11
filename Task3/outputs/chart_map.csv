@@ -1,0 +1,5 @@
+﻿artifact,question,chart_family,chart_type,scope
+stock_parameter_sharpe_heatmap.png,不同股票和均线参数的样本外风险调整收益有何差异？,Matrix & Cohort,annotated heatmap,"10 stocks x 5 parameter pairs, out-of-sample"
+industry_parameter_sharpe_heatmap.png,双均线策略在不同行业中的稳定性有何差异？,Matrix & Cohort,annotated heatmap,"5 industries x 5 parameter pairs, out-of-sample median"
+default_parameter_returns.png,默认 MA5/MA15 在各股票上的样本外累计回报如何？,Comparison & Ranking,signed horizontal bar,"10 stocks, out-of-sample"
+*_MA5_MA15_strategy.png,单只股票的价格、交易信号、策略净值和回撤如何演变？,Trend,three-panel line and area chart,full sample per stock
