@@ -21,9 +21,9 @@
   "sourceInteraction": "not_verified",
   "viewports": [],
   "timings": {
-    "validateAndPackageMs": 253.6,
-    "staticChartExtractionMs": 100.2,
-    "structuralVerificationMs": 21.6,
-    "totalMs": 293.1
+    "validateAndPackageMs": 239.1,
+    "staticChartExtractionMs": 138.8,
+    "structuralVerificationMs": 22.6,
+    "totalMs": 277.8
   }
 }

@@ -103,16 +103,16 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
 """.strip()
 
 
-def task_path(task: int) -> str:
+def task_path(task: int, *, root_prefix: str = "../..") -> str:
     directory = f"TASK{task}" if task >= 5 else f"Task{task}"
-    return f"../../{directory}/web/index.html"
+    return f"{root_prefix}/{directory}/web/index.html" if root_prefix else f"{directory}/web/index.html"
 
 
-def render_task_nav(current_task: int) -> str:
+def render_task_nav(current_task: int, *, root_prefix: str = "../..") -> str:
     links = []
     for task in range(1, 7):
         active = ' class="active" aria-current="page"' if task == current_task else ""
-        links.append(f'<a href="{task_path(task)}"{active}>TASK{task}</a>')
+        links.append(f'<a href="{task_path(task, root_prefix=root_prefix)}"{active}>TASK{task}</a>')
     return (
         '<nav class="task-nav" aria-label="工作坊任务导航">'
         '<div class="brand">PKU Workshop · Quantitative Trading</div>'

@@ -166,7 +166,7 @@ body { background:#f4f7fb!important; color:#172033!important; }
     </div>
   </header>
 <div class="wrap metrics workshop-metrics"><div class="metric"><span>数据样本</span><strong>569 条</strong></div><div class="metric"><span>数值特征</span><strong>30 个</strong></div><div class="metric"><span>最高测试集 AUC</span><strong>0.997</strong></div><div class="metric"><span>最佳模型</span><strong>随机森林</strong></div></div>
-<main id="data-analytics-portable-fallback" class="portable-fallback" data-portable-fallback="true" data-portable-surface="report"><header class="portable-page-header"><div class="portable-page-heading"><p class="portable-surface-label">Data Analytics report</p><h1>TASK5 AI交易引擎：机器学习算法与场景应用</h1><p class="portable-description">乳腺癌二分类教学实验：算法原理、评价指标、三模型训练、混淆矩阵与 ROC/AUC。</p></div><div class="portable-page-meta"><time datetime="2026-07-18T14:14:36Z">Jul 18, 2026, 2:14 PM UTC</time></div></header><div class="portable-block-stack">
+<main id="data-analytics-portable-fallback" class="portable-fallback" data-portable-fallback="true" data-portable-surface="report"><header class="portable-page-header"><div class="portable-page-heading"><p class="portable-surface-label">Data Analytics report</p><h1>TASK5 AI交易引擎：机器学习算法与场景应用</h1><p class="portable-description">乳腺癌二分类教学实验：算法原理、评价指标、三模型训练、混淆矩阵与 ROC/AUC。</p></div><div class="portable-page-meta"><time datetime="2026-07-18T14:54:22Z">Jul 18, 2026, 2:54 PM UTC</time></div></header><div class="portable-block-stack">
 <div class="portable-block portable-layout-full" data-artifact-block-id="technical_summary" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>技术摘要</h2>
 <p>本实验在 <strong>569</strong> 条样本、<strong>30</strong> 个数值特征上比较三种二分类模型。测试集上，随机森林 AUC 为 <strong>0.9974</strong>，逻辑回归为 <strong>0.9960</strong>，决策树为 <strong>0.9203</strong>。逻辑回归与随机森林的排序能力非常接近，而单棵决策树的区分能力和召回率明显较低。由于测试集仅 114 条，结果应视为教学性留出集证据。</p></section></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="headline_metrics" data-artifact-block-type="metric-strip" data-layout="full"><section class="portable-metric-grid"><article class="portable-metric-card" data-artifact-id="metric:headline_metrics:best_auc" data-artifact-kind="card" data-card-id="best_auc"><p class="portable-metric-label">最高测试集 AUC</p><p class="portable-metric-value"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-1"><span class="portable-source-value-text">1</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-1" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span></span></span></p><p class="portable-card-description">三个模型中测试集 ROC-AUC 最高的结果。</p><div class="portable-inline-source portable-source-summary" data-source-id="headline_query"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 最高测试集 AUC</span><span class="portable-source-context">三个模型中测试集 ROC-AUC 最高的结果。</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span><p class="portable-source-description-data">从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><pre class="portable-source-query-data" aria-hidden="true"><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></div></div></article><article class="portable-metric-card" data-artifact-id="metric:headline_metrics:logistic_auc" data-artifact-kind="card" data-card-id="logistic_auc"><p class="portable-metric-label">逻辑回归 AUC</p><p class="portable-metric-value"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-2"><span class="portable-source-value-text">1</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-2" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span></span></span></p><p class="portable-card-description">逻辑回归测试集排序区分能力。</p><div class="portable-inline-source portable-source-summary" data-source-id="headline_query"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 逻辑回归 AUC</span><span class="portable-source-context">逻辑回归测试集排序区分能力。</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span><p class="portable-source-description-data">从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><pre class="portable-source-query-data" aria-hidden="true"><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></div></div></article><article class="portable-metric-card" data-artifact-id="metric:headline_metrics:forest_auc" data-artifact-kind="card" data-card-id="forest_auc"><p class="portable-metric-label">随机森林 AUC</p><p class="portable-metric-value"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-3"><span class="portable-source-value-text">1</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-3" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 1</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span></span></span></p><p class="portable-card-description">随机森林测试集排序区分能力。</p><div class="portable-inline-source portable-source-summary" data-source-id="headline_query"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 随机森林 AUC</span><span class="portable-source-context">随机森林测试集排序区分能力。</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span><p class="portable-source-description-data">从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><pre class="portable-source-query-data" aria-hidden="true"><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></div></div></article><article class="portable-metric-card" data-artifact-id="metric:headline_metrics:test_samples" data-artifact-kind="card" data-card-id="test_samples"><p class="portable-metric-label">测试集样本</p><p class="portable-metric-value"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-4"><span class="portable-source-value-text">114</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-4" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 114</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span></span></span></p><p class="portable-card-description">最终评价阶段未参与模型训练的样本数量。</p><div class="portable-inline-source portable-source-summary" data-source-id="headline_query"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 测试集样本</span><span class="portable-source-context">最终评价阶段未参与模型训练的样本数量。</span><strong>Source: TASK5 核心指标查询</strong><span class="portable-source-meta">Table: headline</span><p class="portable-source-description-data">从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><pre class="portable-source-query-data" aria-hidden="true"><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></div></div></article></section></div>
@@ -210,7 +210,7 @@ body { background:#f4f7fb!important; color:#172033!important; }
 <div class="portable-block portable-layout-full" data-artifact-block-id="next_steps" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>迁移到量化交易的下一步</h2>
 <ul><li>把应变量改为未来持有期收益是否大于 0、是否跑赢基准或是否进入收益率前分位。</li><li>以财务质量、估值、动量、波动率和流动性作为特征，但所有特征必须按当时可获得时间对齐。</li><li>使用按时间先后划分、滚动窗口或扩展窗口验证，严禁随机打乱未来和过去。</li><li>根据手续费、滑点、换手率和错失机会设定分类阈值，并用回测收益、最大回撤等指标补充 AUC。</li></ul></section></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="further_questions" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><h2>后续可研究的问题</h2>
-<ol><li>下调恶性预测阈值后，三种模型的召回率与假正率如何变化？</li><li>使用分层交叉验证选择树深后，决策树的测试 AUC 能否稳定改善？</li><li>迁移到股票收益标签时，模型排序能力能否在不同时期、行业和市场状态下保持？</li></ol></section></div></div><section class="portable-sources" aria-labelledby="portable-sources-heading"><h2 id="portable-sources-heading">Sources</h2><ol><li><strong>TASK5 核心指标查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:14:36Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></details></li><li><strong>TASK5 模型评价结果查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:14:36Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 模型评价结果查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT model, model_zh, accuracy, precision, recall, specificity, f1, roc_auc, auc_ci_low, auc_ci_high, tn, fp, fn, tp, train_accuracy, train_roc_auc, auc_95_ci, sample_size, positive_class FROM metrics ORDER BY roc_auc DESC</code></pre></details></li><li><strong>TASK5 数据划分类别查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:14:36Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 数据划分类别查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT split, class_value, class_name, count, proportion, total_in_split, positive_class FROM split_summary ORDER BY split, class_value</code></pre></details></li><li><strong>TASK5 ROC 曲线点查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:14:36Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 ROC 曲线点查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT model, model_zh, fpr, tpr, threshold, sample_size, positive_count FROM roc_points ORDER BY model_zh, fpr, tpr</code></pre></details></li><li><strong>TASK5 数据质量摘要查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:14:36Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 数据质量摘要查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT dataset_name, samples, features, missing_values, duplicate_feature_rows, positive_class, negative_class, train_samples, test_samples, test_size, random_state FROM data_quality</code></pre></details></li></ol></section></main>
+<ol><li>下调恶性预测阈值后，三种模型的召回率与假正率如何变化？</li><li>使用分层交叉验证选择树深后，决策树的测试 AUC 能否稳定改善？</li><li>迁移到股票收益标签时，模型排序能力能否在不同时期、行业和市场状态下保持？</li></ol></section></div></div><section class="portable-sources" aria-labelledby="portable-sources-heading"><h2 id="portable-sources-heading">Sources</h2><ol><li><strong>TASK5 核心指标查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:54:22Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 核心指标查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT best_auc, best_model, logistic_auc, forest_auc, tree_auc, test_samples FROM headline</code></pre></details></li><li><strong>TASK5 模型评价结果查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:54:22Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 模型评价结果查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT model, model_zh, accuracy, precision, recall, specificity, f1, roc_auc, auc_ci_low, auc_ci_high, tn, fp, fn, tp, train_accuracy, train_roc_auc, auc_95_ci, sample_size, positive_class FROM metrics ORDER BY roc_auc DESC</code></pre></details></li><li><strong>TASK5 数据划分类别查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:54:22Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 数据划分类别查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT split, class_value, class_name, count, proportion, total_in_split, positive_class FROM split_summary ORDER BY split, class_value</code></pre></details></li><li><strong>TASK5 ROC 曲线点查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:54:22Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 ROC 曲线点查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT model, model_zh, fpr, tpr, threshold, sample_size, positive_count FROM roc_points ORDER BY model_zh, fpr, tpr</code></pre></details></li><li><strong>TASK5 数据质量摘要查询</strong><span class="portable-source-meta">web/source_queries.sql · sqlite · 2026-07-18T14:54:22Z</span><p>从 Python 模型流程导出的内存 SQLite 表读取TASK5 数据质量摘要查询。</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT dataset_name, samples, features, missing_values, duplicate_feature_rows, positive_class, negative_class, train_samples, test_samples, test_size, random_state FROM data_quality</code></pre></details></li></ol></section></main>
 <script data-data-analytics-portable-source-tooltips="true">(() => {
   const RUNTIME_FLAG = "__dataAnalyticsPortableSourceTooltipsInitialized";
   const READY_ATTRIBUTE = "data-portable-source-tooltips-ready";
@@ -558,7 +558,7 @@ H1zaRm16GVAZZY/fYnb37v7o+vW/ufrg29d/89qHH3z3+s27V995++pnP773q7fuv/O31//67Xvv
 vXb15t3r77x7dfdb97/19u1nb3t+49ZR2T465fa9X/3rg6/cvf+dV+/dffXqqy/d//n719/+ztXP
 fnz1zvce/vTVDz/47g2Zq9e+f/9/vPS7Oy88ePfL997/5fWrL1+/9fLv7rxw771Xrt/+wdX3vv7g
 nZ/df/9Lv7vzwvUvf3n9y5fuf/8fH77+7/fee+2WLC5BRlv+7s6Lt5+9ffZzv7Zb32Pa28/dRiCE
-+FOI/FOYUmHsORh7DiWs28/edu3aa24/99/+4nbk3X7utuM37fN25/7+1d975d57P705/t57P7v+
++FOI/FOYUmHsORx7DkGs28/edu3aa24/99/+4nbk3X7utuM37fN25/7+1d975d57P705/t57P7v+
 968/ePfbD9946XLknzLa8tb1m3ce/tPr97/75fvv/8319968uYJnt3bjX44PfdtLo9y/KKXoatff
 eU+NPl91fj1dtOO3deTeXCi1HT+9/dztG8pPTmS05e1nbweRn37qxkFRZ/blsLzLHL++/Zdf/Mtn
 P+IrLc5R00buH+Tt4Z33H/zmr67e+N7Vr//68THXr/311d1vXr169+qrLz340q+vvvbG/0aWnj7x
@@ -7292,46 +7292,46 @@ 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
-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
-r/6WxfuWxcj/AWB9eN8cmQgA
+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
+q79l8b5lMfJ/TNMMBByZCAA=
 </template>
 <template id="data-analytics-portable-reader-runtime-source" data-compression="gzip-base64">
 H4sIAAAAAAACCuy9a3fjNrYg+v38CilTV0MeQ4pk15MyyqfiR6e665VyVdLVjseESUhCTIEKCNnl

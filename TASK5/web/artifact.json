@@ -5,7 +5,7 @@
     "surface": "report",
     "title": "TASK5 AI交易引擎：机器学习算法与场景应用",
     "description": "乳腺癌二分类教学实验：算法原理、评价指标、三模型训练、混淆矩阵与 ROC/AUC。",
-    "generatedAt": "2026-07-18T14:14:36Z",
+    "generatedAt": "2026-07-18T14:54:22Z",
     "cards": [
       {
         "id": "best_auc",
@@ -420,7 +420,7 @@
   },
   "snapshot": {
     "version": 1,
-    "generatedAt": "2026-07-18T14:14:36Z",
+    "generatedAt": "2026-07-18T14:54:22Z",
     "status": "ready",
     "datasets": {
       "headline": [
@@ -906,7 +906,7 @@
           "测试集比例：20%",
           "random_state=42"
         ],
-        "executed_at": "2026-07-18T14:14:36Z",
+        "executed_at": "2026-07-18T14:54:22Z",
         "metric_definitions": {
           "accuracy": "(TP+TN)/(TP+TN+FP+FN)",
           "precision": "TP/(TP+FP)",
@@ -934,7 +934,7 @@
           "测试集比例：20%",
           "random_state=42"
         ],
-        "executed_at": "2026-07-18T14:14:36Z",
+        "executed_at": "2026-07-18T14:54:22Z",
         "metric_definitions": {
           "accuracy": "(TP+TN)/(TP+TN+FP+FN)",
           "precision": "TP/(TP+FP)",
@@ -962,7 +962,7 @@
           "测试集比例：20%",
           "random_state=42"
         ],
-        "executed_at": "2026-07-18T14:14:36Z"
+        "executed_at": "2026-07-18T14:54:22Z"
       }
     },
     {
@@ -982,7 +982,7 @@
           "测试集比例：20%",
           "random_state=42"
         ],
-        "executed_at": "2026-07-18T14:14:36Z"
+        "executed_at": "2026-07-18T14:54:22Z"
       }
     },
     {
@@ -1002,7 +1002,7 @@
           "测试集比例：20%",
           "random_state=42"
         ],
-        "executed_at": "2026-07-18T14:14:36Z"
+        "executed_at": "2026-07-18T14:54:22Z"
       }
     }
   ]
