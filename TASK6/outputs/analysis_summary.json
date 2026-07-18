@@ -1,0 +1,13 @@
+{
+  "best_model_by_test_mean_rank_ic": "decision_tree",
+  "best_model_zh": "决策树",
+  "best_mean_rank_ic": -0.07972374175642719,
+  "best_positive_ic_ratio": 0.5,
+  "best_strategy_cumulative_net_return": 0.3004003947449123,
+  "best_strategy_annualized_net_return": 0.14035099629233128,
+  "best_strategy_max_drawdown": -0.08290179813799026,
+  "benchmark_cumulative_return": 0.4841889172751601,
+  "benchmark_annualized_return": 0.2182729239686647,
+  "one_way_cost": 0.002,
+  "interpretation_boundary": "Historical educational backtest with survivorship and execution limitations; not investment advice."
+}

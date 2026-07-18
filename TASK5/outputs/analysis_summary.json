@@ -1,0 +1,12 @@
+{
+  "title": "TASK5 AI交易引擎：机器学习算法与场景应用",
+  "best_model_by_test_auc": "random_forest",
+  "best_model_zh": "随机森林",
+  "best_test_auc": 0.9973544973544973,
+  "best_auc_ci": [
+    0.990982083654718,
+    1.0
+  ],
+  "best_recall": 0.9285714285714286,
+  "interpretation_boundary": "该实验验证分类流程，不构成医学诊断或投资建议。"
+}

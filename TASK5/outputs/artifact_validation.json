@@ -1,0 +1,62 @@
+{
+  "status": "FAIL",
+  "passed": 7,
+  "total": 9,
+  "checks": [
+    {
+      "category": "HTML",
+      "name": "index.html 存在",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\web\\index.html"
+    },
+    {
+      "category": "HTML",
+      "name": "artifact.json 存在",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\web\\artifact.json"
+    },
+    {
+      "category": "HTML",
+      "name": "delivery_receipt.json 存在",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\web\\delivery_receipt.json"
+    },
+    {
+      "category": "HTML",
+      "name": "正式标题",
+      "passed": true,
+      "detail": "TASK5 AI交易引擎：机器学习算法与场景应用"
+    },
+    {
+      "category": "HTML",
+      "name": "无外部脚本依赖",
+      "passed": true,
+      "detail": "可离线打开"
+    },
+    {
+      "category": "HTML",
+      "name": "无外部样式依赖",
+      "passed": true,
+      "detail": "可离线打开"
+    },
+    {
+      "category": "HTML",
+      "name": "官方打包器校验",
+      "passed": true,
+      "detail": "{\"ok\": true, \"html\": \"C:\\\\Users\\\\13377\\\\Desktop\\\\PKU-WorkShop-202607\\\\TASK5\\\\web\\\\index.html\", \"stages\": {\"validation\": \"passed\", \"package\": \"passed\", \"verification\": \"structural_only\"}, \"browserWarning\": {\"code\": \"browser_unavailable\", \"message\": \"No installed Chromium headless-shell executable was found. Set CHROMIUM_EXECUTABLE_PATH (or the legacy PLAYWRIGHT_EXECUTABLE_PATH) or preinstall Chromium headless-shell under PLAYWRIGHT_BROWSERS_PATH; portable tooling never downloads browsers.\"}, \"counts\": {\"blocks\": 31, \"charts\": 3, \"html\": 5, \"metrics\": 4, \"tables\": 1}, \"sourceDialog\": \"not_verified\", \"sourceInteraction\": \"not_verified\", \"viewports\": [], \"timings\": {\"validateAndPackageMs\": 253.6, \"staticChartExtractionMs\": 100.2, \"structuralVerificationMs\": 21.6, \"totalMs\": 293.1}}"
+    },
+    {
+      "category": "DOCX",
+      "name": "文件存在",
+      "passed": false,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\report\\姓名TASK5.docx"
+    },
+    {
+      "category": "PDF",
+      "name": "文件存在",
+      "passed": false,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\report\\姓名TASK5.pdf"
+    }
+  ],
+  "submission_note": "提交前请把文件名中的“姓名”替换为真实姓名。"
+}

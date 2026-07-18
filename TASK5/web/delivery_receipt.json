@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "html": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\web\\index.html",
+  "stages": {
+    "validation": "passed",
+    "package": "passed",
+    "verification": "structural_only"
+  },
+  "browserWarning": {
+    "code": "browser_unavailable",
+    "message": "No installed Chromium headless-shell executable was found. Set CHROMIUM_EXECUTABLE_PATH (or the legacy PLAYWRIGHT_EXECUTABLE_PATH) or preinstall Chromium headless-shell under PLAYWRIGHT_BROWSERS_PATH; portable tooling never downloads browsers."
+  },
+  "counts": {
+    "blocks": 31,
+    "charts": 3,
+    "html": 5,
+    "metrics": 4,
+    "tables": 1
+  },
+  "sourceDialog": "not_verified",
+  "sourceInteraction": "not_verified",
+  "viewports": [],
+  "timings": {
+    "validateAndPackageMs": 253.6,
+    "staticChartExtractionMs": 100.2,
+    "structuralVerificationMs": 21.6,
+    "totalMs": 293.1
+  }
+}

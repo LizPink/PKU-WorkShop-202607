@@ -1,0 +1,17 @@
+﻿model,model_zh,params,validation_mean_rank_ic,validation_ic_std,validation_positive_ic_ratio,validation_mae
+ridge,岭回归,"{""alpha"": 0.1}",0.07459804,0.08456305,1.00000000,0.24952291
+ridge,岭回归,"{""alpha"": 1.0}",0.07490183,0.08439415,1.00000000,0.24951968
+ridge,岭回归,"{""alpha"": 10.0}",0.07444909,0.08384374,1.00000000,0.24948476
+decision_tree,决策树,"{""max_depth"": 3, ""min_samples_leaf"": 10}",0.06397284,0.16165212,0.75000000,0.24939937
+decision_tree,决策树,"{""max_depth"": 3, ""min_samples_leaf"": 25}",0.00082694,0.21418635,0.50000000,0.25048324
+decision_tree,决策树,"{""max_depth"": 3, ""min_samples_leaf"": 50}",0.01885953,0.13459622,0.50000000,0.25048241
+decision_tree,决策树,"{""max_depth"": 5, ""min_samples_leaf"": 10}",0.04768476,0.12887475,0.50000000,0.25188288
+decision_tree,决策树,"{""max_depth"": 5, ""min_samples_leaf"": 25}",0.03311773,0.22037242,0.50000000,0.25224474
+decision_tree,决策树,"{""max_depth"": 5, ""min_samples_leaf"": 50}",0.00575272,0.18732997,0.50000000,0.25267648
+decision_tree,决策树,"{""max_depth"": 7, ""min_samples_leaf"": 10}",0.06085229,0.17022597,0.50000000,0.25504386
+decision_tree,决策树,"{""max_depth"": 7, ""min_samples_leaf"": 25}",0.00718451,0.16986664,0.50000000,0.25860958
+decision_tree,决策树,"{""max_depth"": 7, ""min_samples_leaf"": 50}",0.04860452,0.11853420,0.75000000,0.24978030
+random_forest,随机森林,"{""max_depth"": 5, ""max_features"": 0.7, ""min_samples_leaf"": 10}",0.13462557,0.14316127,0.75000000,0.24740072
+random_forest,随机森林,"{""max_depth"": 8, ""max_features"": 0.7, ""min_samples_leaf"": 10}",0.11308285,0.14473251,0.75000000,0.24692727
+random_forest,随机森林,"{""max_depth"": null, ""max_features"": ""sqrt"", ""min_samples_leaf"": 10}",0.11546408,0.16019253,0.75000000,0.24645084
+random_forest,随机森林,"{""max_depth"": null, ""max_features"": 0.7, ""min_samples_leaf"": 25}",0.08470521,0.17856189,0.75000000,0.24741169

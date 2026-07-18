@@ -1,0 +1,756 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Task4 海龟交易策略回测与参数研究",
+    "description": "基于10只A股2019年至2026年日线数据的海龟策略教学回测、风险指标与参数敏感性研究。",
+    "generatedAt": "2026-07-11T17:16:08+08:00",
+    "sources": [
+      {
+        "id": "prices",
+        "label": "A股前复权日线行情",
+        "path": "Task3/data/*_daily_qfq.csv",
+        "query": {
+          "language": "python",
+          "description": "读取10只股票的本地前复权日线OHLCV数据并按交易日排序去重。",
+          "tables_used": [
+            "Task3/data/*_daily_qfq.csv"
+          ],
+          "filters": [
+            "2019-01-02至2026-07-10",
+            "10只人工选择的跨行业代表性股票"
+          ]
+        }
+      },
+      {
+        "id": "backtest_summary",
+        "label": "海龟策略批量回测汇总",
+        "path": "Task4/outputs/parameter_comparison.csv",
+        "query": {
+          "language": "sql",
+          "engine": "DuckDB",
+          "sql": "SELECT * FROM read_csv_auto('Task4/outputs/parameter_comparison.csv') WHERE sample_period IN ('full', 'out_of_sample');",
+          "description": "使用前一日通道、Wilder ATR、次日开盘执行、1%风险定仓和0.1%单边成本计算绩效。",
+          "tables_used": [
+            "Task4/outputs/parameter_comparison.csv"
+          ],
+          "filters": [
+            "样本外从2024-01-01开始",
+            "只做多",
+            "不加杠杆",
+            "不加仓"
+          ],
+          "metric_definitions": [
+            "累计回报=(1+日策略收益)连乘-1",
+            "最大回撤=min(累计净值/历史最高净值-1)",
+            "夏普比率=日均收益/日收益标准差×sqrt(252)，无风险利率为0",
+            "ATR为真实波幅的Wilder递推平均"
+          ]
+        }
+      }
+    ],
+    "cards": [
+      {
+        "id": "median-return",
+        "dataset": "headline",
+        "sourceId": "backtest_summary",
+        "description": "默认参数在10只股票样本外累计回报的中位数。",
+        "metrics": [
+          {
+            "label": "样本外中位累计回报",
+            "field": "median_return",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "median-sharpe",
+        "dataset": "headline",
+        "sourceId": "backtest_summary",
+        "description": "默认参数样本外日收益按252日年化的中位夏普比率。",
+        "metrics": [
+          {
+            "label": "样本外中位夏普",
+            "field": "median_sharpe",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "median-mdd",
+        "dataset": "headline",
+        "sourceId": "backtest_summary",
+        "description": "默认参数在10只股票样本外最大回撤的中位数。",
+        "metrics": [
+          {
+            "label": "样本外中位最大回撤",
+            "field": "median_mdd",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "positive-share",
+        "dataset": "headline",
+        "sourceId": "backtest_summary",
+        "description": "默认参数样本外累计回报大于零的股票占比。",
+        "metrics": [
+          {
+            "label": "正收益股票占比",
+            "field": "positive_share",
+            "format": "percent"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "default-returns",
+        "title": "默认参数下各股票累计回报",
+        "subtitle": "2019-01至2026-07；海龟策略与买入持有，单位为累计回报率",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "默认海龟策略相对买入持有的跨股票表现如何？",
+        "rationale": "横向分组柱形能够在股票名称较长的情况下直接比较同一标的的策略与基准累计回报。",
+        "comparisonContext": {
+          "baseline": "买入持有",
+          "grain": "股票",
+          "unit": "累计回报率"
+        },
+        "type": "horizontalBar",
+        "dataset": "default_full",
+        "sourceId": "backtest_summary",
+        "encodings": {
+          "x": {
+            "field": "stock_name",
+            "type": "nominal",
+            "label": "股票"
+          },
+          "y": {
+            "fields": [
+              "strategy_return",
+              "benchmark_return"
+            ],
+            "type": "quantitative",
+            "format": "percent",
+            "label": "累计回报"
+          }
+        },
+        "valueFormat": "percent",
+        "palette": {
+          "kind": "categorical"
+        },
+        "legend": {
+          "position": "bottom",
+          "sort": "spec",
+          "title": "序列"
+        },
+        "layout": "full",
+        "surface": {
+          "surface": "card",
+          "viewMode": "both"
+        }
+      },
+      {
+        "id": "parameter-sharpe",
+        "title": "参数组合的样本外中位夏普比率",
+        "subtitle": "2024-01至2026-07；每个参数汇总10只股票的中位数",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "哪组参数在跨股票样本外比较中更稳健？",
+        "rationale": "横向柱形适合按中位夏普排序六组参数，并保留较长的参数标签。",
+        "comparisonContext": {
+          "grain": "参数组合",
+          "unit": "夏普比率",
+          "normalization": "10只股票中位数"
+        },
+        "type": "horizontalBar",
+        "dataset": "parameter_oos",
+        "sourceId": "backtest_summary",
+        "encodings": {
+          "x": {
+            "field": "parameter",
+            "type": "nominal",
+            "label": "参数组合"
+          },
+          "y": {
+            "field": "median_sharpe",
+            "type": "quantitative",
+            "format": "number",
+            "label": "中位夏普比率"
+          }
+        },
+        "valueFormat": "number",
+        "palette": {
+          "kind": "sequential"
+        },
+        "layout": "full",
+        "surface": {
+          "surface": "card",
+          "viewMode": "both"
+        }
+      },
+      {
+        "id": "risk-return",
+        "title": "默认参数样本外风险—收益分布",
+        "subtitle": "2024-01至2026-07；横轴为最大回撤幅度，纵轴为累计回报",
+        "showDescription": true,
+        "intent": "relationship",
+        "question": "默认参数下哪些股票实现了更好的风险收益组合？",
+        "rationale": "散点图能够同时显示每只股票的最大回撤幅度、累计回报、行业和身份标签。",
+        "comparisonContext": {
+          "grain": "股票",
+          "unit": "回报率",
+          "denominator": "各股票策略净值"
+        },
+        "type": "scatter",
+        "dataset": "default_oos",
+        "sourceId": "backtest_summary",
+        "encodings": {
+          "x": {
+            "field": "mdd_magnitude",
+            "type": "quantitative",
+            "format": "percent",
+            "label": "最大回撤幅度"
+          },
+          "y": {
+            "field": "cumulative_return",
+            "type": "quantitative",
+            "format": "percent",
+            "label": "累计回报"
+          },
+          "color": {
+            "field": "industry",
+            "type": "nominal",
+            "label": "行业"
+          },
+          "label": {
+            "field": "stock_name",
+            "type": "text",
+            "label": "股票"
+          },
+          "tooltip": [
+            {
+              "field": "stock_name",
+              "type": "text",
+              "label": "股票"
+            },
+            {
+              "field": "industry",
+              "type": "text",
+              "label": "行业"
+            },
+            {
+              "field": "sharpe_ratio",
+              "type": "quantitative",
+              "format": "number",
+              "label": "夏普比率"
+            },
+            {
+              "field": "completed_trades",
+              "type": "quantitative",
+              "format": "number",
+              "label": "完成交易"
+            }
+          ]
+        },
+        "layout": "full",
+        "surface": {
+          "surface": "card",
+          "viewMode": "both"
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "default-oos-table",
+        "title": "默认参数样本外绩效明细",
+        "subtitle": "2024-01至2026-07；按夏普比率从高到低排序",
+        "showDescription": true,
+        "dataset": "default_oos",
+        "sourceId": "backtest_summary",
+        "defaultSort": {
+          "field": "sharpe_ratio",
+          "direction": "desc"
+        },
+        "density": "spacious",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "stock_name",
+            "label": "股票",
+            "type": "text"
+          },
+          {
+            "field": "industry",
+            "label": "行业",
+            "type": "text"
+          },
+          {
+            "field": "cumulative_return",
+            "label": "累计回报",
+            "format": "percent",
+            "role": "movement"
+          },
+          {
+            "field": "benchmark_return",
+            "label": "基准回报",
+            "format": "percent",
+            "role": "movement"
+          },
+          {
+            "field": "max_drawdown",
+            "label": "最大回撤",
+            "format": "percent",
+            "role": "movement"
+          },
+          {
+            "field": "sharpe_ratio",
+            "label": "夏普比率",
+            "format": "number"
+          },
+          {
+            "field": "completed_trades",
+            "label": "完成交易",
+            "format": "number"
+          },
+          {
+            "field": "win_rate",
+            "label": "胜率",
+            "format": "percent"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Task4 海龟交易策略回测与参数研究",
+        "layout": "full"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## 技术摘要\n\n- 默认参数 `E20/X10/ATR20/S2` 在样本外10只股票中有 **7/10** 取得正累计回报；中位累计回报为 **0.6%**，中位夏普比率为 **0.08**，中位最大回撤为 **-5.8%**。\n- 默认参数样本外夏普最高的是 **长电科技**，累计回报 **15.6%**、最大回撤 **-5.3%**。\n- 跨股票中位夏普最高的参数为 **E40/X20/ATR20/S2**。参数排序仅用于稳健性观察，不代表未来最优。",
+        "sourceId": "backtest_summary",
+        "layout": "full"
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "median-return",
+          "median-sharpe",
+          "median-mdd",
+          "positive-share"
+        ],
+        "layout": "full"
+      },
+      {
+        "id": "finding-default",
+        "type": "markdown",
+        "body": "## 默认参数在不同股票上的结果分化明显\n\n下图比较全样本海龟策略与买入持有。趋势策略并不保证跑赢单边上涨的股票，但在部分标的上能够通过风险定仓和退出规则限制回撤。应把策略收益、基准收益和回撤一起阅读。",
+        "layout": "full"
+      },
+      {
+        "id": "default-returns-block",
+        "type": "chart",
+        "chartId": "default-returns",
+        "layout": "full"
+      },
+      {
+        "id": "finding-parameters",
+        "type": "markdown",
+        "body": "## 参数变化改变交易频率和趋势敏感度\n\n样本外跨股票中位夏普最高的是 `E40/X20/ATR20/S2`。短通道响应快但容易受噪声影响；长通道减少交易，却可能错过趋势前段。参数比较的用途是寻找不过度失真的区域，而不是追逐单一最高值。",
+        "sourceId": "backtest_summary",
+        "layout": "full"
+      },
+      {
+        "id": "parameter-sharpe-block",
+        "type": "chart",
+        "chartId": "parameter-sharpe",
+        "layout": "full"
+      },
+      {
+        "id": "finding-risk",
+        "type": "markdown",
+        "body": "## 风险与收益必须联合评估\n\n风险—收益图把累计回报与最大回撤放在同一坐标中；越靠左上方表示回撤较小且收益较高。点位分散说明海龟策略对个股趋势结构敏感，适合通过多标的分散，而不适合作为单只股票的确定性预测工具。",
+        "layout": "full"
+      },
+      {
+        "id": "risk-return-block",
+        "type": "chart",
+        "chartId": "risk-return",
+        "layout": "full"
+      },
+      {
+        "id": "definitions",
+        "type": "markdown",
+        "body": "## 数据、指标与模拟口径\n\n- **数据**：10只A股前复权日线，2019-01至2026-07。\n- **入场/离场**：突破前N日最高通道入场；跌破较短低点通道或触发初始ATR止损离场。普通通道信号下一交易日开盘执行。\n- **ATR与仓位**：真实波幅采用三项最大值，ATR使用Wilder递推；每笔计划风险为账户权益1%，资金占用不超过100%。\n- **绩效**：累计回报、年化收益/波动、MDD、夏普、胜率、交易次数和基准收益；样本外从2024-01-01开始。",
+        "sourceId": "prices",
+        "layout": "full"
+      },
+      {
+        "id": "details-table",
+        "type": "table",
+        "tableId": "default-oos-table",
+        "layout": "full"
+      },
+      {
+        "id": "limitations",
+        "type": "markdown",
+        "body": "## 局限与稳健性检查\n\n股票池为人工选择的当前代表性股票，存在幸存者偏差；每个行业仅2只股票。模型未模拟100股整手、涨跌停无法成交、停牌、滑点和容量约束，允许教学用小数股。参数排名不能证明未来最优，结论应优先依据跨标的和样本外稳定性。",
+        "layout": "full"
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "body": "## 建议的下一步\n\n1. 扩大股票池并使用历史成分股，降低幸存者偏差。\n2. 加入滚动样本外检验和组合级风险预算。\n3. 模拟整手、涨跌停、滑点、停牌和成交量限制。\n4. 与双均线和买入持有在相同成本口径下比较。",
+        "layout": "full"
+      },
+      {
+        "id": "further-questions",
+        "type": "markdown",
+        "body": "## 进一步问题\n\n不同市场状态下最稳健的通道区间是否一致？加入组合分散和趋势过滤后，能否在不显著牺牲收益的情况下改善回撤？这些问题需要更大股票池和滚动样本外研究。",
+        "layout": "full"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-07-11T17:16:08+08:00",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "median_return": 0.0060944894271365,
+          "median_sharpe": 0.08102546461975155,
+          "median_mdd": -0.0582983084205181,
+          "positive_share": 0.7,
+          "positive_count": 7,
+          "stock_count": 10
+        }
+      ],
+      "default_full": [
+        {
+          "ts_code": "000001.SZ",
+          "stock_name": "平安银行",
+          "industry": "银行",
+          "strategy_return": -0.0534612689960222,
+          "benchmark_return": 0.4631612058236332,
+          "sharpe_ratio": -0.166860454354541,
+          "max_drawdown": -0.1360483585030709
+        },
+        {
+          "ts_code": "600036.SH",
+          "stock_name": "招商银行",
+          "industry": "银行",
+          "strategy_return": -0.0365277685158786,
+          "benchmark_return": 2.09136630343671,
+          "sharpe_ratio": -0.1158552585606776,
+          "max_drawdown": -0.1030449715523916
+        },
+        {
+          "ts_code": "600519.SH",
+          "stock_name": "贵州茅台",
+          "industry": "食品饮料",
+          "strategy_return": 0.1052548732163292,
+          "benchmark_return": 2.705578448859107,
+          "sharpe_ratio": 0.3641462679856026,
+          "max_drawdown": -0.1136431875010497
+        },
+        {
+          "ts_code": "000858.SZ",
+          "stock_name": "五粮液",
+          "industry": "食品饮料",
+          "strategy_return": 0.0870870589956065,
+          "benchmark_return": 2.1145393068470053,
+          "sharpe_ratio": 0.2945641246147072,
+          "max_drawdown": -0.1055548199585187
+        },
+        {
+          "ts_code": "002594.SZ",
+          "stock_name": "比亚迪",
+          "industry": "新能源汽车",
+          "strategy_return": 0.1953521486723597,
+          "benchmark_return": 5.67655786350147,
+          "sharpe_ratio": 0.4938166789265791,
+          "max_drawdown": -0.0690472709427669
+        },
+        {
+          "ts_code": "300750.SZ",
+          "stock_name": "宁德时代",
+          "industry": "新能源汽车",
+          "strategy_return": 0.3143090552446972,
+          "benchmark_return": 16.32538499751608,
+          "sharpe_ratio": 0.6705459963359326,
+          "max_drawdown": -0.065817903127242
+        },
+        {
+          "ts_code": "002371.SZ",
+          "stock_name": "北方华创",
+          "industry": "半导体",
+          "strategy_return": 0.2676110359505672,
+          "benchmark_return": 30.282952548330407,
+          "sharpe_ratio": 0.6099116265525921,
+          "max_drawdown": -0.1461568832409863
+        },
+        {
+          "ts_code": "600584.SH",
+          "stock_name": "长电科技",
+          "industry": "半导体",
+          "strategy_return": 0.1426542189526072,
+          "benchmark_return": 12.608344549125135,
+          "sharpe_ratio": 0.3739088419903963,
+          "max_drawdown": -0.0938402954880956
+        },
+        {
+          "ts_code": "600031.SH",
+          "stock_name": "三一重工",
+          "industry": "工程机械",
+          "strategy_return": 0.1438843374601579,
+          "benchmark_return": 2.5672404009835352,
+          "sharpe_ratio": 0.4183227976052682,
+          "max_drawdown": -0.0636911581463114
+        },
+        {
+          "ts_code": "000425.SZ",
+          "stock_name": "徐工机械",
+          "industry": "工程机械",
+          "strategy_return": 0.2031073452461658,
+          "benchmark_return": 3.080348499515978,
+          "sharpe_ratio": 0.544704240302799,
+          "max_drawdown": -0.1054857155077462
+        }
+      ],
+      "default_oos": [
+        {
+          "ts_code": "000001.SZ",
+          "stock_name": "平安银行",
+          "industry": "银行",
+          "cumulative_return": -0.002745224017934,
+          "benchmark_return": 0.3254741451060579,
+          "max_drawdown": -0.0535387664883745,
+          "mdd_magnitude": 0.0535387664883745,
+          "sharpe_ratio": -0.0016142834013523,
+          "completed_trades": 12,
+          "win_rate": 0.25,
+          "average_exposure": 0.1248370939283455
+        },
+        {
+          "ts_code": "600036.SH",
+          "stock_name": "招商银行",
+          "industry": "银行",
+          "cumulative_return": 0.0065270518271125,
+          "benchmark_return": 0.6894182317911126,
+          "max_drawdown": -0.0591088823408788,
+          "mdd_magnitude": 0.0591088823408788,
+          "sharpe_ratio": 0.08538484258712,
+          "completed_trades": 13,
+          "win_rate": 0.4615384615384615,
+          "average_exposure": 0.1049716286320014
+        },
+        {
+          "ts_code": "600519.SH",
+          "stock_name": "贵州茅台",
+          "industry": "食品饮料",
+          "cumulative_return": -0.0732302767143275,
+          "benchmark_return": -0.2429413316914423,
+          "max_drawdown": -0.0915610547942684,
+          "mdd_magnitude": 0.0915610547942684,
+          "sharpe_ratio": -0.9669947349049356,
+          "completed_trades": 11,
+          "win_rate": 0.1818181818181818,
+          "average_exposure": 0.0512027720828653
+        },
+        {
+          "ts_code": "000858.SZ",
+          "stock_name": "五粮液",
+          "industry": "食品饮料",
+          "cumulative_return": -0.0391064579522725,
+          "benchmark_return": -0.421222117499215,
+          "max_drawdown": -0.0707635045430438,
+          "mdd_magnitude": 0.0707635045430438,
+          "sharpe_ratio": -0.4682562900958784,
+          "completed_trades": 8,
+          "win_rate": 0.25,
+          "average_exposure": 0.0362032858921223
+        },
+        {
+          "ts_code": "002594.SZ",
+          "stock_name": "比亚迪",
+          "industry": "新能源汽车",
+          "cumulative_return": 0.0054692676095253,
+          "benchmark_return": 0.414204902576996,
+          "max_drawdown": -0.0676075802465727,
+          "mdd_magnitude": 0.0676075802465727,
+          "sharpe_ratio": 0.0753704462161371,
+          "completed_trades": 11,
+          "win_rate": 0.4545454545454545,
+          "average_exposure": 0.0550981634643886
+        },
+        {
+          "ts_code": "300750.SZ",
+          "stock_name": "宁德时代",
+          "industry": "新能源汽车",
+          "cumulative_return": 0.0845147481223651,
+          "benchmark_return": 1.412562257885999,
+          "max_drawdown": -0.0658179031272416,
+          "mdd_magnitude": 0.0658179031272416,
+          "sharpe_ratio": 0.5232560706644002,
+          "completed_trades": 11,
+          "win_rate": 0.4545454545454545,
+          "average_exposure": 0.0734044311029297
+        },
+        {
+          "ts_code": "002371.SZ",
+          "stock_name": "北方华创",
+          "industry": "半导体",
+          "cumulative_return": 0.0921182488660765,
+          "benchmark_return": 3.4528943813478765,
+          "max_drawdown": -0.0409763501720906,
+          "mdd_magnitude": 0.0409763501720906,
+          "sharpe_ratio": 0.6493824951413985,
+          "completed_trades": 12,
+          "win_rate": 0.4166666666666667,
+          "average_exposure": 0.0882302312655633
+        },
+        {
+          "ts_code": "600584.SH",
+          "stock_name": "长电科技",
+          "industry": "半导体",
+          "cumulative_return": 0.1561944530490422,
+          "benchmark_return": 2.4262961707895627,
+          "max_drawdown": -0.0525929706706074,
+          "mdd_magnitude": 0.0525929706706074,
+          "sharpe_ratio": 0.9259593501373294,
+          "completed_trades": 9,
+          "win_rate": 0.5555555555555556,
+          "average_exposure": 0.0671041016218335
+        },
+        {
+          "ts_code": "600031.SH",
+          "stock_name": "三一重工",
+          "industry": "工程机械",
+          "cumulative_return": 0.0056619270271605,
+          "benchmark_return": 0.4637175009701193,
+          "max_drawdown": -0.0427573149843349,
+          "mdd_magnitude": 0.0427573149843349,
+          "sharpe_ratio": 0.0766660866523831,
+          "completed_trades": 12,
+          "win_rate": 0.3333333333333333,
+          "average_exposure": 0.0742233167235639
+        },
+        {
+          "ts_code": "000425.SZ",
+          "stock_name": "徐工机械",
+          "industry": "工程机械",
+          "cumulative_return": 0.0625307590224479,
+          "benchmark_return": 0.718304117407258,
+          "max_drawdown": -0.0574877345001574,
+          "mdd_magnitude": 0.0574877345001574,
+          "sharpe_ratio": 0.5541359566776058,
+          "completed_trades": 10,
+          "win_rate": 0.4,
+          "average_exposure": 0.0772393655424047
+        }
+      ],
+      "parameter_oos": [
+        {
+          "parameter": "E40/X20/ATR20/S2",
+          "median_return": 0.0284991103231335,
+          "median_sharpe": 0.2985969173079633,
+          "median_mdd": -0.058539449684174405,
+          "positive_share": 0.7,
+          "median_trades": 6.0
+        },
+        {
+          "parameter": "E10/X5/ATR14/S1.5",
+          "median_return": 0.037523173956177644,
+          "median_sharpe": 0.2983020320477864,
+          "median_mdd": -0.07241148528696635,
+          "positive_share": 0.6,
+          "median_trades": 17.0
+        },
+        {
+          "parameter": "E20/X10/ATR20/S3",
+          "median_return": 0.013860361204853199,
+          "median_sharpe": 0.19336312613962794,
+          "median_mdd": -0.04437522695640265,
+          "positive_share": 0.6,
+          "median_trades": 11.0
+        },
+        {
+          "parameter": "E20/X10/ATR20/S1.5",
+          "median_return": 0.021170296022513697,
+          "median_sharpe": 0.1866400895828467,
+          "median_mdd": -0.08033047223556765,
+          "positive_share": 0.6,
+          "median_trades": 12.0
+        },
+        {
+          "parameter": "E20/X10/ATR20/S2",
+          "median_return": 0.0060944894271365,
+          "median_sharpe": 0.08102546461975155,
+          "median_mdd": -0.0582983084205181,
+          "positive_share": 0.7,
+          "median_trades": 11.0
+        },
+        {
+          "parameter": "E55/X20/ATR20/S2",
+          "median_return": -0.00728514299342085,
+          "median_sharpe": -0.059031963128098004,
+          "median_mdd": -0.0545839564548458,
+          "positive_share": 0.4,
+          "median_trades": 6.0
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "prices",
+      "label": "A股前复权日线行情",
+      "path": "Task3/data/*_daily_qfq.csv",
+      "query": {
+        "language": "python",
+        "description": "读取10只股票的本地前复权日线OHLCV数据并按交易日排序去重。",
+        "tables_used": [
+          "Task3/data/*_daily_qfq.csv"
+        ],
+        "filters": [
+          "2019-01-02至2026-07-10",
+          "10只人工选择的跨行业代表性股票"
+        ]
+      }
+    },
+    {
+      "id": "backtest_summary",
+      "label": "海龟策略批量回测汇总",
+      "path": "Task4/outputs/parameter_comparison.csv",
+      "query": {
+        "language": "sql",
+        "engine": "DuckDB",
+        "sql": "SELECT * FROM read_csv_auto('Task4/outputs/parameter_comparison.csv') WHERE sample_period IN ('full', 'out_of_sample');",
+        "description": "使用前一日通道、Wilder ATR、次日开盘执行、1%风险定仓和0.1%单边成本计算绩效。",
+        "tables_used": [
+          "Task4/outputs/parameter_comparison.csv"
+        ],
+        "filters": [
+          "样本外从2024-01-01开始",
+          "只做多",
+          "不加杠杆",
+          "不加仓"
+        ],
+        "metric_definitions": [
+          "累计回报=(1+日策略收益)连乘-1",
+          "最大回撤=min(累计净值/历史最高净值-1)",
+          "夏普比率=日均收益/日收益标准差×sqrt(252)，无风险利率为0",
+          "ATR为真实波幅的Wilder递推平均"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Task3｜双均线策略与跨行业回测</title>
+  <style>
+:root {
+  --ink:#172033;
+  --muted:#64748b;
+  --line:#dbe4ee;
+  --panel:#ffffff;
+  --blue:#2563eb;
+  --blue-dark:#173b76;
+  --blue-soft:#dbeafe;
+  --orange:#d97706;
+  --orange-soft:#fff7ed;
+  --bg:#f4f7fb;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; color-scheme:light; }
+body {
+  margin:0;
+  font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.7;
+}
+a { color:inherit; }
+.wrap { width:min(1180px, calc(100% - 32px)); margin:0 auto; }
+.hero { padding:24px 0 58px; background:linear-gradient(135deg,#0f172a,#173b76); color:white; }
+.task-nav { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:54px; }
+.brand { font-size:13px; font-weight:800; letter-spacing:.08em; color:#dbeafe; text-transform:uppercase; }
+.nav-links { display:flex; flex-wrap:wrap; gap:8px; }
+.nav-links a {
+  text-decoration:none;
+  color:#dbeafe;
+  border:1px solid rgba(219,234,254,.28);
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:13px;
+  transition:.18s ease;
+}
+.nav-links a:hover,.nav-links a.active { color:white; background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.48); }
+.tag { display:inline-block; padding:4px 10px; border-radius:999px; background:var(--blue-soft); color:#1d4ed8; font-size:12px; font-weight:800; }
+.hero .tag { margin-bottom:16px; }
+.hero h1 { font-size:clamp(34px,5vw,58px); line-height:1.12; margin:0; letter-spacing:-.03em; max-width:900px; }
+.hero p { max-width:840px; color:#dbeafe; font-size:18px; margin:16px 0 0; }
+main { display:block; }
+section { padding:42px 0; }
+section.compact { padding-top:14px; }
+h2 { font-size:28px; line-height:1.3; margin:0 0 18px; }
+h3 { margin:5px 0 0; font-size:20px; line-height:1.4; }
+h3 small { font-weight:500; color:var(--muted); font-size:13px; }
+.section-lede { max-width:820px; margin:-8px 0 20px; color:#475569; }
+.metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:-32px; position:relative; }
+.metric,.card,.chart-card,.figure { background:var(--panel); border:1px solid var(--line); border-radius:18px; box-shadow:0 10px 30px rgba(15,23,42,.06); }
+.metric { padding:22px; min-height:112px; }
+.metric span { display:block; color:var(--muted); font-size:13px; }
+.metric strong { display:block; font-size:27px; line-height:1.25; margin-top:6px; overflow-wrap:anywhere; }
+.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.grid.two { grid-template-columns:repeat(2,1fr); }
+.card { padding:24px; }
+.card p { margin:8px 0 0; color:#475569; }
+.rules { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.rule { border-left:4px solid var(--blue); }
+.rule.sell { border-left-color:var(--orange); }
+.figure-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.figure { padding:14px; }
+.figure.wide { grid-column:1/-1; }
+.figure h3 { padding:3px 5px 12px; }
+.figure img,.chart-card img,.hero-figure img { width:100%; height:auto; display:block; border-radius:12px; border:1px solid var(--line); background:white; }
+.chart-list { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.chart-card { padding:14px; }
+.chart-copy { padding:4px 5px 12px; }
+.chart-card a { display:block; text-decoration:none; }
+.table-shell { overflow:auto; background:white; border:1px solid var(--line); border-radius:16px; box-shadow:0 10px 30px rgba(15,23,42,.04); }
+.data-table { width:100%; border-collapse:collapse; font-size:14px; }
+.data-table th { position:sticky; top:0; background:#eaf1fb; color:#334155; text-align:left; }
+.data-table th,.data-table td { padding:11px 13px; border-bottom:1px solid var(--line); white-space:nowrap; }
+.data-table tr:last-child td { border-bottom:0; }
+.data-table tbody tr:hover { background:#f8fafc; }
+.indicator-table th,.indicator-table td { text-align:left; vertical-align:top; white-space:normal; min-width:150px; line-height:1.55; }
+.note { background:var(--orange-soft); border:1px solid #fed7aa; border-radius:14px; padding:16px 18px; color:#7c2d12; margin-top:18px; }
+.note.blue { background:#eff6ff; border-color:#bfdbfe; color:#1e3a8a; }
+.pill-row { display:flex; flex-wrap:wrap; gap:9px; margin-top:14px; }
+.pill { padding:5px 10px; border-radius:999px; background:#eef2ff; color:#3730a3; font-size:12px; font-weight:700; }
+footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
+@media (max-width:850px) {
+  .grid,.grid.two,.rules,.figure-grid,.chart-list { grid-template-columns:1fr; }
+  .figure.wide { grid-column:auto; }
+  .task-nav { align-items:flex-start; flex-direction:column; margin-bottom:42px; }
+}
+@media (max-width:560px) {
+  .hero { padding-top:20px; }
+  .hero p { font-size:16px; }
+  .nav-links a { padding:5px 9px; }
+  section { padding:34px 0; }
+  h2 { font-size:24px; }
+}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html" class="active" aria-current="page">TASK3</a><a href="../../Task4/web/index.html">TASK4</a><a href="../../TASK5/web/index.html">TASK5</a><a href="../../TASK6/web/index.html">TASK6</a></div></nav>
+      <div class="tag">PKU WORKSHOP · TASK3</div>
+      <h1>策略首秀：双均线<br>捕捉趋势与波动</h1>
+      <p>用明确的金叉、死叉规则完成跨行业股票回测，并从累计回报、最大回撤和夏普比率评价策略。</p>
+    </div>
+  </header>
+  <main>
+
+    <div class="wrap metrics">
+      <div class="metric"><span>股票池</span><strong>10 只</strong></div>
+      <div class="metric"><span>行业覆盖</span><strong>5 个</strong></div>
+      <div class="metric"><span>样本外夏普最佳参数</span><strong>MA5/MA15</strong></div>
+      <div class="metric"><span>MA5/15 战胜买入持有</span><strong>1/10</strong></div>
+    </div>
+    <section><div class="wrap"><h2>核心概念</h2><div class="grid">
+      <article class="card"><h3>金叉</h3><p>短期均线从不高于长期均线变为高于长期均线，表示近期价格趋势转强，产生买入信号。</p></article>
+      <article class="card"><h3>死叉</h3><p>短期均线从高于长期均线变为不高于长期均线，表示近期趋势转弱，产生卖出信号。</p></article>
+      <article class="card"><h3>趋势跟随</h3><p>均线不预测未来，而是确认已经出现的方向；趋势行情更友好，震荡行情容易反复触发。</p></article>
+    </div></div></section>
+    <section><div class="wrap"><h2>可执行的交易规则</h2><div class="rules">
+      <article class="card rule"><h3>什么时候买？</h3><p>MA5 首次上穿 MA15、此前为空仓且两条均线均已形成时记录金叉；信号下一交易期应用。</p></article>
+      <article class="card rule sell"><h3>什么时候卖？</h3><p>MA5 从高于 MA15 变为不高于 MA15、此前持仓时记录死叉；下一交易期仓位归零。</p></article>
+    </div><p class="note"><strong>回测假设：</strong>初始资金100,000元，只做多、不加杠杆；单边成本0.1%；无风险利率为0；信号错后一日。</p></div></section>
+    <section><div class="wrap"><h2>三项核心指标</h2><div class="grid">
+      <article class="card"><h3>累计回报</h3><p>期末净值 ÷ 期初净值 − 1，回答策略最终赚了多少。</p></article>
+      <article class="card"><h3>最大回撤 MDD</h3><p>净值相对历史最高点的最大跌幅，回答策略最难熬时损失多大。</p></article>
+      <article class="card"><h3>夏普比率</h3><p>年化平均收益相对于年化波动的比例，回答风险调整后收益如何。</p></article>
+    </div></div></section>
+    <section><div class="wrap"><h2>跨股票与跨行业结果</h2><div class="figure-grid">
+      <article class="figure wide"><a href="../outputs/stock_parameter_sharpe_heatmap.png" target="_blank" rel="noopener"><img src="../outputs/stock_parameter_sharpe_heatmap.png" alt="股票参数夏普热力图"></a></article>
+      <article class="figure"><a href="../outputs/industry_parameter_sharpe_heatmap.png" target="_blank" rel="noopener"><img src="../outputs/industry_parameter_sharpe_heatmap.png" alt="行业参数夏普热力图"></a></article>
+      <article class="figure"><a href="../outputs/default_parameter_returns.png" target="_blank" rel="noopener"><img src="../outputs/default_parameter_returns.png" alt="默认参数累计回报"></a></article>
+    </div></div></section>
+    <section><div class="wrap"><h2>参数比较表</h2><div class="table-shell"><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>parameter</th>
+      <th>收益中位数</th>
+      <th>夏普中位数</th>
+      <th>回撤中位数</th>
+      <th>正收益比例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MA5/MA15</td>
+      <td>31.90%</td>
+      <td>0.568</td>
+      <td>-27.57%</td>
+      <td>60.00%</td>
+    </tr>
+    <tr>
+      <td>MA20/MA60</td>
+      <td>18.66%</td>
+      <td>0.409</td>
+      <td>-26.48%</td>
+      <td>60.00%</td>
+    </tr>
+    <tr>
+      <td>MA10/MA30</td>
+      <td>17.28%</td>
+      <td>0.386</td>
+      <td>-28.20%</td>
+      <td>70.00%</td>
+    </tr>
+    <tr>
+      <td>MA10/MA20</td>
+      <td>15.81%</td>
+      <td>0.360</td>
+      <td>-28.70%</td>
+      <td>60.00%</td>
+    </tr>
+    <tr>
+      <td>MA5/MA10</td>
+      <td>4.89%</td>
+      <td>0.207</td>
+      <td>-27.19%</td>
+      <td>60.00%</td>
+    </tr>
+  </tbody>
+</table></div></div></section>
+    <section><div class="wrap"><h2>默认 MA5/MA15 样本外表现</h2><div class="table-shell"><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>股票</th>
+      <th>行业</th>
+      <th>策略回报</th>
+      <th>夏普</th>
+      <th>最大回撤</th>
+      <th>买入持有</th>
+      <th>买入次数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>长电科技</td>
+      <td>半导体</td>
+      <td>231.21%</td>
+      <td>1.425</td>
+      <td>-23.84%</td>
+      <td>242.63%</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>招商银行</td>
+      <td>银行</td>
+      <td>31.34%</td>
+      <td>0.686</td>
+      <td>-23.71%</td>
+      <td>68.94%</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>宁德时代</td>
+      <td>新能源汽车</td>
+      <td>53.59%</td>
+      <td>0.660</td>
+      <td>-34.45%</td>
+      <td>141.26%</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>北方华创</td>
+      <td>半导体</td>
+      <td>50.02%</td>
+      <td>0.655</td>
+      <td>-35.21%</td>
+      <td>345.29%</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>比亚迪</td>
+      <td>新能源汽车</td>
+      <td>32.46%</td>
+      <td>0.574</td>
+      <td>-27.89%</td>
+      <td>41.42%</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>徐工机械</td>
+      <td>工程机械</td>
+      <td>33.20%</td>
+      <td>0.562</td>
+      <td>-27.25%</td>
+      <td>71.83%</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>工程机械</td>
+      <td>-0.81%</td>
+      <td>0.106</td>
+      <td>-26.73%</td>
+      <td>46.37%</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>平安银行</td>
+      <td>银行</td>
+      <td>-8.46%</td>
+      <td>-0.131</td>
+      <td>-21.70%</td>
+      <td>32.55%</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>五粮液</td>
+      <td>食品饮料</td>
+      <td>-32.04%</td>
+      <td>-0.713</td>
+      <td>-34.38%</td>
+      <td>-42.12%</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>贵州茅台</td>
+      <td>食品饮料</td>
+      <td>-30.96%</td>
+      <td>-0.872</td>
+      <td>-30.88%</td>
+      <td>-24.29%</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table></div><p class="note"><strong>阅读重点：</strong>正收益不等于择时有效。MA5/MA15 样本外表现最好的股票是 长电科技，但只有 1/10 战胜买入持有。</p></div></section>
+    <section><div class="wrap"><h2>逐股回测图</h2><div class="chart-list"><article class="chart-card">
+              <div class="chart-copy"><span class="tag">银行</span><h3>平安银行 <small>000001.SZ</small></h3></div>
+              <a href="../outputs/000001_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/000001_SZ_MA5_MA15_strategy.png" alt="平安银行 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">银行</span><h3>招商银行 <small>600036.SH</small></h3></div>
+              <a href="../outputs/600036_SH_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/600036_SH_MA5_MA15_strategy.png" alt="招商银行 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">食品饮料</span><h3>贵州茅台 <small>600519.SH</small></h3></div>
+              <a href="../outputs/600519_SH_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/600519_SH_MA5_MA15_strategy.png" alt="贵州茅台 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">食品饮料</span><h3>五粮液 <small>000858.SZ</small></h3></div>
+              <a href="../outputs/000858_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/000858_SZ_MA5_MA15_strategy.png" alt="五粮液 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">新能源汽车</span><h3>比亚迪 <small>002594.SZ</small></h3></div>
+              <a href="../outputs/002594_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/002594_SZ_MA5_MA15_strategy.png" alt="比亚迪 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">新能源汽车</span><h3>宁德时代 <small>300750.SZ</small></h3></div>
+              <a href="../outputs/300750_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/300750_SZ_MA5_MA15_strategy.png" alt="宁德时代 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">半导体</span><h3>北方华创 <small>002371.SZ</small></h3></div>
+              <a href="../outputs/002371_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/002371_SZ_MA5_MA15_strategy.png" alt="北方华创 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">半导体</span><h3>长电科技 <small>600584.SH</small></h3></div>
+              <a href="../outputs/600584_SH_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/600584_SH_MA5_MA15_strategy.png" alt="长电科技 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">工程机械</span><h3>三一重工 <small>600031.SH</small></h3></div>
+              <a href="../outputs/600031_SH_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/600031_SH_MA5_MA15_strategy.png" alt="三一重工 双均线回测图"></a>
+            </article><article class="chart-card">
+              <div class="chart-copy"><span class="tag">工程机械</span><h3>徐工机械 <small>000425.SZ</small></h3></div>
+              <a href="../outputs/000425_SZ_MA5_MA15_strategy.png" target="_blank" rel="noopener"><img src="../outputs/000425_SZ_MA5_MA15_strategy.png" alt="徐工机械 双均线回测图"></a>
+            </article></div></div></section>
+    <section><div class="wrap"><h2>数据质量</h2><div class="table-shell"><table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>股票</th>
+      <th>行业</th>
+      <th>起始日期</th>
+      <th>截止日期</th>
+      <th>交易日数</th>
+      <th>重复日期</th>
+      <th>关键缺失</th>
+      <th>数据来源</th>
+      <th>通过检查</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>平安银行</td>
+      <td>银行</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro: daily + adj_factor</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>招商银行</td>
+      <td>银行</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily 日期校验 + 东方财富前复权行情</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>贵州茅台</td>
+      <td>食品饮料</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily 日期校验 + 东方财富前复权行情</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>五粮液</td>
+      <td>食品饮料</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily 日期校验 + 东方财富前复权行情</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>比亚迪</td>
+      <td>新能源汽车</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily 日期校验 + 东方财富前复权行情</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>宁德时代</td>
+      <td>新能源汽车</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily 日期校验 + 东方财富前复权行情</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>北方华创</td>
+      <td>半导体</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily + TuShare legacy qfq</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>长电科技</td>
+      <td>半导体</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1818</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily + TuShare legacy qfq</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>三一重工</td>
+      <td>工程机械</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1823</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily + TuShare legacy qfq</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>徐工机械</td>
+      <td>工程机械</td>
+      <td>2019-01-02</td>
+      <td>2026-07-10</td>
+      <td>1800</td>
+      <td>0</td>
+      <td>0</td>
+      <td>TuShare Pro daily + TuShare legacy qfq</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table></div><p class="note">股票池按当前代表性人工选择，存在幸存者偏差；历史最优参数也可能过拟合。本页用于教学与研究演示，不构成投资建议。</p></div></section>
+
+  </main>
+  <footer><div class="wrap">数据：TuShare日线校验与前复权本地快照｜回测：Python / pandas｜Task3 可通过 run_all.py 一键复现</div></footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿ts_code,stock_name,industry,file,price_type,source,downloaded_on
+000001.SZ,平安银行,银行,000001_SZ_daily_qfq.csv,前复权,TuShare Pro: daily + adj_factor,2026-07-11
+600036.SH,招商银行,银行,600036_SH_daily_qfq.csv,前复权,TuShare Pro daily 日期校验 + 东方财富前复权行情,2026-07-11
+600519.SH,贵州茅台,食品饮料,600519_SH_daily_qfq.csv,前复权,TuShare Pro daily 日期校验 + 东方财富前复权行情,2026-07-11
+000858.SZ,五粮液,食品饮料,000858_SZ_daily_qfq.csv,前复权,TuShare Pro daily 日期校验 + 东方财富前复权行情,2026-07-11
+002594.SZ,比亚迪,新能源汽车,002594_SZ_daily_qfq.csv,前复权,TuShare Pro daily 日期校验 + 东方财富前复权行情,2026-07-11
+300750.SZ,宁德时代,新能源汽车,300750_SZ_daily_qfq.csv,前复权,TuShare Pro daily 日期校验 + 东方财富前复权行情,2026-07-11
+002371.SZ,北方华创,半导体,002371_SZ_daily_qfq.csv,前复权,TuShare Pro daily + TuShare legacy qfq,2026-07-11
+600584.SH,长电科技,半导体,600584_SH_daily_qfq.csv,前复权,TuShare Pro daily + TuShare legacy qfq,2026-07-11
+600031.SH,三一重工,工程机械,600031_SH_daily_qfq.csv,前复权,TuShare Pro daily + TuShare legacy qfq,2026-07-11
+000425.SZ,徐工机械,工程机械,000425_SZ_daily_qfq.csv,前复权,TuShare Pro daily + TuShare legacy qfq,2026-07-11

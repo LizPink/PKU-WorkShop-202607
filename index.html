@@ -196,6 +196,20 @@
       overflow: visible;
     }
 
+    .preview-topic {
+      display: grid;
+      min-height: 118px;
+      place-items: center;
+      border: 1px solid #dce5e8;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 750;
+      text-align: center;
+      line-height: 1.5;
+    }
+
     .preview-stat {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -282,7 +296,7 @@
       <div class="section-head">
         <div>
           <h2 id="task-list-title">任务列表</h2>
-          <p class="subtitle">当前已发布 2 个任务，后续 Task3 可以继续按相同结构加入。</p>
+          <p class="subtitle">当前已发布 6 个任务，覆盖行情数据、技术指标、规则策略、机器学习分类与量化选股。</p>
         </div>
       </div>
 
@@ -366,10 +380,90 @@
             </div>
           </div>
         </article>
+
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task3</span>
+              <span class="pill gold">双均线策略</span>
+            </div>
+            <h3>跨股票双均线回测</h3>
+            <p>以金叉、死叉为明确交易规则，对 10 只代表性 A 股进行跨行业回测，并比较累计回报、最大回撤和夏普比率。</p>
+            <div class="task-links" aria-label="Task3 资源">
+              <a class="task-link" href="Task3/web/">打开网页</a>
+              <a class="task-link" href="Task3/outputs/parameter_comparison.csv">查看参数比较</a>
+              <a class="task-link" href="Task3/Task3_process_walkthrough.ipynb">学习 notebook</a>
+            </div>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <div class="preview-topic">MA5 / MA15<br>趋势跟随</div>
+            <div class="preview-stat"><div><span>股票数</span><strong>10</strong></div><div><span>行业</span><strong>5</strong></div></div>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task4</span>
+              <span class="pill gold">海龟法则</span>
+            </div>
+            <h3>突破、波动与风险控制</h3>
+            <p>复刻海龟交易法则，结合高低点通道、Wilder ATR、风险定仓和样本外参数比较，观察趋势策略的适应边界。</p>
+            <div class="task-links" aria-label="Task4 资源">
+              <a class="task-link" href="Task4/web/">打开网页</a>
+              <a class="task-link" href="Task4/outputs/default_summary.csv">查看默认结果</a>
+              <a class="task-link" href="Task4/Task4_process_walkthrough.ipynb">学习 notebook</a>
+            </div>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <div class="preview-topic">Turtle Channel<br>Wilder ATR</div>
+            <div class="preview-stat"><div><span>股票数</span><strong>10</strong></div><div><span>参数组</span><strong>6</strong></div></div>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task5</span>
+              <span class="pill gold">机器学习分类</span>
+            </div>
+            <h3>AI 交易引擎算法实验</h3>
+            <p>比较逻辑回归、决策树与随机森林，结合混淆矩阵、ROC 和 AUC 理解分类模型的选择依据与风险取舍。</p>
+            <div class="task-links" aria-label="Task5 资源">
+              <a class="task-link" href="TASK5/web/">打开网页</a>
+              <a class="task-link" href="TASK5/outputs/metrics.csv">查看模型指标</a>
+              <a class="task-link" href="TASK5/report/李子平-TASK5.pdf">查看 PDF</a>
+            </div>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <div class="preview-topic">Logistic · Tree<br>Random Forest</div>
+            <div class="preview-stat"><div><span>样本</span><strong>569</strong></div><div><span>最高 AUC</span><strong>0.997</strong></div></div>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <div>
+            <div class="task-meta">
+              <span class="pill">Task6</span>
+              <span class="pill gold">机器学习选股</span>
+            </div>
+            <h3>智能决策者量化策略</h3>
+            <p>用 18 个因子预测下一季度收益排序，构建 Top 30 等权组合，以扩展窗口回测和市场等权基准检验经济效果。</p>
+            <div class="task-links" aria-label="Task6 资源">
+              <a class="task-link" href="TASK6/web/">打开网页</a>
+              <a class="task-link" href="TASK6/outputs/backtest_metrics.csv">查看回测指标</a>
+              <a class="task-link" href="TASK6/report/李子平-TASK6.pdf">查看 PDF</a>
+            </div>
+          </div>
+          <div class="preview" aria-hidden="true">
+            <div class="preview-topic">Quarterly Ranking<br>Top 30 Portfolio</div>
+            <div class="preview-stat"><div><span>股票</span><strong>120</strong></div><div><span>测试季度</span><strong>8</strong></div></div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <p class="note">站点首页文件位于仓库根目录 <code>index.html</code>。各任务仍保存在自己的目录中，例如 <code>Task1/web/index.html</code> 和 <code>Task2/web/index.html</code>，所以后续新增 Task3 不会受到影响。</p>
+    <p class="note">站点首页文件位于仓库根目录 <code>index.html</code>，每个任务的网页、数据、图表、Notebook 与报告仍保存在各自目录中，便于独立复现和查阅。</p>
   </main>
 </body>
 </html>

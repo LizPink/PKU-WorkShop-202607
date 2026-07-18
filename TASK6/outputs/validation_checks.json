@@ -1,0 +1,476 @@
+{
+  "status": "Ready to share",
+  "passed": 67,
+  "total": 67,
+  "checks": [
+    {
+      "category": "Files",
+      "name": "quarterly_panel.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\data\\processed\\quarterly_panel.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "test_predictions.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\test_predictions.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "model_metrics.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\model_metrics.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "quarterly_ic.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\quarterly_ic.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "quarterly_returns.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\quarterly_returns.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "holdings.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\holdings.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "backtest_metrics.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\backtest_metrics.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "cost_sensitivity.csv",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\cost_sensitivity.csv",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "data_quality.json",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\data_quality.json",
+      "severity": "High"
+    },
+    {
+      "category": "Files",
+      "name": "selected_parameters.json",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\outputs\\selected_parameters.json",
+      "severity": "High"
+    },
+    {
+      "category": "Data",
+      "name": "季度面板主键唯一",
+      "passed": true,
+      "detail": "duplicates=0",
+      "severity": "High"
+    },
+    {
+      "category": "Data",
+      "name": "信号早于进场且进场早于退出",
+      "passed": true,
+      "detail": "signal < entry < exit",
+      "severity": "High"
+    },
+    {
+      "category": "Data",
+      "name": "18 个模型因子完整",
+      "passed": true,
+      "detail": "features=18",
+      "severity": "High"
+    },
+    {
+      "category": "Data",
+      "name": "数据质量元数据一致",
+      "passed": true,
+      "detail": "metadata=4281, actual=4281",
+      "severity": "High"
+    },
+    {
+      "category": "Method",
+      "name": "时间划分严格递增",
+      "passed": true,
+      "detail": "2023Q1 < 2023Q2 <= 2024Q1 < 2024Q2",
+      "severity": "High"
+    },
+    {
+      "category": "Method",
+      "name": "测试集为 8 个季度",
+      "passed": true,
+      "detail": "quarters=8",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "ridge 季度 Rank IC 独立复算",
+      "passed": true,
+      "detail": "max_diff=5.00e-09",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "ridge 平均 Rank IC 一致",
+      "passed": true,
+      "detail": "saved=-0.13713377, recomputed=-0.13713377",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "ridge 每季度 Top 30",
+      "passed": true,
+      "detail": "{8098: 30, 8099: 30, 8100: 30, 8101: 30, 8102: 30, 8103: 30, 8104: 30, 8105: 30}",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "ridge 权重和为 1",
+      "passed": true,
+      "detail": "range=1.00000000..1.00000000",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "ridge Top 30 收益复算",
+      "passed": true,
+      "detail": "max_diff=5.00e-11",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "ridge 净收益成本公式",
+      "passed": true,
+      "detail": "net = gross - cost",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "ridge 累计收益复算",
+      "passed": true,
+      "detail": "saved=0.09665727, recomputed=0.09665727",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "ridge 最大回撤复算",
+      "passed": true,
+      "detail": "saved=-0.10464056, recomputed=-0.10464056",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "decision_tree 季度 Rank IC 独立复算",
+      "passed": true,
+      "detail": "max_diff=4.39e-09",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "decision_tree 平均 Rank IC 一致",
+      "passed": true,
+      "detail": "saved=-0.07972374, recomputed=-0.07972374",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "decision_tree 每季度 Top 30",
+      "passed": true,
+      "detail": "{8098: 30, 8099: 30, 8100: 30, 8101: 30, 8102: 30, 8103: 30, 8104: 30, 8105: 30}",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "decision_tree 权重和为 1",
+      "passed": true,
+      "detail": "range=1.00000000..1.00000000",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "decision_tree Top 30 收益复算",
+      "passed": true,
+      "detail": "max_diff=5.33e-11",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "decision_tree 净收益成本公式",
+      "passed": true,
+      "detail": "net = gross - cost",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "decision_tree 累计收益复算",
+      "passed": true,
+      "detail": "saved=0.30040039, recomputed=0.30040039",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "decision_tree 最大回撤复算",
+      "passed": true,
+      "detail": "saved=-0.08290180, recomputed=-0.08290180",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "random_forest 季度 Rank IC 独立复算",
+      "passed": true,
+      "detail": "max_diff=4.60e-09",
+      "severity": "High"
+    },
+    {
+      "category": "Prediction",
+      "name": "random_forest 平均 Rank IC 一致",
+      "passed": true,
+      "detail": "saved=-0.09680494, recomputed=-0.09680494",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "random_forest 每季度 Top 30",
+      "passed": true,
+      "detail": "{8098: 30, 8099: 30, 8100: 30, 8101: 30, 8102: 30, 8103: 30, 8104: 30, 8105: 30}",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "random_forest 权重和为 1",
+      "passed": true,
+      "detail": "range=1.00000000..1.00000000",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "random_forest Top 30 收益复算",
+      "passed": true,
+      "detail": "max_diff=5.00e-11",
+      "severity": "High"
+    },
+    {
+      "category": "Portfolio",
+      "name": "random_forest 净收益成本公式",
+      "passed": true,
+      "detail": "net = gross - cost",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "random_forest 累计收益复算",
+      "passed": true,
+      "detail": "saved=0.22718249, recomputed=0.22718249",
+      "severity": "High"
+    },
+    {
+      "category": "Performance",
+      "name": "random_forest 最大回撤复算",
+      "passed": true,
+      "detail": "saved=-0.07135046, recomputed=-0.07135046",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_1_sample_coverage.png",
+      "passed": true,
+      "detail": "1768x1181px, 127913 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_2_factor_correlation.png",
+      "passed": true,
+      "detail": "1984x1788px, 201701 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_3_quarterly_rank_ic.png",
+      "passed": true,
+      "detail": "1785x1177px, 227462 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_4_model_excess_return.png",
+      "passed": true,
+      "detail": "1568x1092px, 86922 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_5_cumulative_nav.png",
+      "passed": true,
+      "detail": "1785x1177px, 167298 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_6_quarterly_returns.png",
+      "passed": true,
+      "detail": "1788x1177px, 114452 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_7_drawdown.png",
+      "passed": true,
+      "detail": "1751x1121px, 148777 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "Figure",
+      "name": "figure_8_random_forest_feature_importance.png",
+      "passed": true,
+      "detail": "1924x1240px, 130924 bytes",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "文件存在",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\report\\姓名TASK6.docx",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正式标题",
+      "passed": true,
+      "detail": "TASK6 智能决策者：用机器学习定制专属策略",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "8 幅统计图",
+      "passed": true,
+      "detail": "actual=8",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "7 张核心表",
+      "passed": true,
+      "detail": "actual=7",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "图号完整",
+      "passed": true,
+      "detail": "figure_numbers=['1', '2', '3', '4', '5', '6', '7', '8']",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "A4 页面",
+      "passed": true,
+      "detail": "21.00x29.70cm",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正文宋体",
+      "passed": true,
+      "detail": "SimSun",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正文五号",
+      "passed": true,
+      "detail": "10.5pt",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正文 1.5 倍行距",
+      "passed": true,
+      "detail": "1.5",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正文 0 段间距",
+      "passed": true,
+      "detail": "before=0, after=0",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "正文两端对齐",
+      "passed": true,
+      "detail": "JUSTIFY (3)",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "无未替换占位符",
+      "passed": true,
+      "detail": "No [[...]] markers",
+      "severity": "High"
+    },
+    {
+      "category": "DOCX",
+      "name": "图片替代文本",
+      "passed": true,
+      "detail": "alt_count=8",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "文件存在",
+      "passed": true,
+      "detail": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK6\\report\\姓名TASK6.pdf",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "页数合理",
+      "passed": true,
+      "detail": "pages=15",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "全部页面 A4",
+      "passed": true,
+      "detail": "pages=15",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "正式标题可检索",
+      "passed": true,
+      "detail": "TASK6 智能决策者：用机器学习定制专属策略",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "核心任务内容完整",
+      "passed": true,
+      "detail": "机器学习交易策略, 自变量, 应变量, 决策树, 随机森林, Rank IC, Top 30, 回测",
+      "severity": "High"
+    },
+    {
+      "category": "PDF",
+      "name": "8 个图号可检索",
+      "passed": true,
+      "detail": "figures=['1', '2', '3', '4', '5', '6', '7', '8']",
+      "severity": "High"
+    }
+  ]
+}
