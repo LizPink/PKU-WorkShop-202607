@@ -1,0 +1,9 @@
+﻿figure,section,question,family,chart_type,artifact
+图1,平台流程,策略如何从注册走到模拟交易,流程图,开发到模拟的五阶段流程,figure_1_platform_workflow.png
+图2,净值,参数调整后路径是否改善,趋势,三条累计净值线,figure_2_nav_comparison.png
+图3,分期收益,基础、锁参和基准在两个阶段如何比较,比较,分组柱形图,figure_3_period_returns.png
+图4,参数稳健性,动量与趋势窗口是否存在宽阔高原,矩阵,带数值热力图,figure_4_parameter_heatmap.png
+图5,回撤,参数调整是否改善损失路径,趋势与基准,多线回撤图,figure_5_drawdown.png
+图6,成本,交易成本变化如何影响收益,比较,三情景柱形图,figure_6_cost_sensitivity.png
+图7,行业暴露,行业平均与峰值集中度如何,比较,分组水平条形图,figure_7_industry_exposure.png
+图8,尾部风险,观察期左尾损失有多大,分布,直方图与VaR/CVaR线,figure_8_tail_risk.png

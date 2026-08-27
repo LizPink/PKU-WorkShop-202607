@@ -1,0 +1,14 @@
+{
+  "source": "TASK3前复权日线数据；原始来源见strategy_universe.csv",
+  "calendar_start": "2019-01-02",
+  "calendar_end": "2026-07-10",
+  "security_count": 10,
+  "row_count": 18202,
+  "common_latest_date": "2026-07-10",
+  "known_limitations": [
+    "固定十只股票池存在幸存者偏差与样本选择偏差",
+    "缺少历史ST、停牌、涨跌停和盘口冲击的完整逐日复原",
+    "本地撮合为日频近似，不等同于JoinQuant官方回测引擎",
+    "模拟观察期是锁参后的历史纸上推演，不是已运行多日的JoinQuant模拟账户"
+  ]
+}
