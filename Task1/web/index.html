@@ -19,7 +19,7 @@
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -99,18 +99,19 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-</style>
+  </style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html" class="active" aria-current="page">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html">TASK4</a></div></nav>
+      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html" class="active" aria-current="page">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html">TASK4</a><a href="../../TASK5/web/index.html">TASK5</a><a href="../../TASK6/web/index.html">TASK6</a></div></nav>
       <div class="tag">PKU WORKSHOP · TASK1</div>
       <h1>数据启航：寒武纪<br>行情获取与复权处理</h1>
       <p>从行情接口到本地数据快照，完成日期、价格、成交量与前复权序列的标准化整理。</p>
     </div>
   </header>
   <main>
+
     <div class="wrap metrics">
       <div class="metric"><span>交易日数量</span><strong>242</strong></div>
       <div class="metric"><span>数据区间</span><strong>2025-07-04<br><small>至 2026-07-03</small></strong></div>
@@ -237,7 +238,8 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
 </table></div>
       <p class="note blue"><strong>阅读提示：</strong>前复权序列用于连续收益分析；研究实际成交价格时仍应保留未复权行情。</p>
     </div></section>
-    </main>
+
+  </main>
   <footer><div class="wrap">数据：寒武纪 A 股日线本地快照｜处理：Python / pandas｜Task1 可通过 run_all.py 一键复现</div></footer>
 </body>
 </html>

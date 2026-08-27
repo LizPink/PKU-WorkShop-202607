@@ -19,7 +19,7 @@
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -99,18 +99,19 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-</style>
+  </style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html" class="active" aria-current="page">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html">TASK4</a></div></nav>
+      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html" class="active" aria-current="page">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html">TASK4</a><a href="../../TASK5/web/index.html">TASK5</a><a href="../../TASK6/web/index.html">TASK6</a></div></nav>
       <div class="tag">PKU WORKSHOP · TASK2</div>
       <h1>指标进阶：从数据诊断<br>到趋势与波动</h1>
       <p>先检查数据质量和分布，再构建 RSI、MACD、布林带与 ATR，为策略研究建立可靠指标层。</p>
     </div>
   </header>
   <main>
+
     <div class="wrap metrics">
       <div class="metric"><span>股票数量</span><strong>2 只</strong></div>
       <div class="metric"><span>最新 RSI 均值</span><strong>56.02</strong></div>
@@ -338,7 +339,8 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
 </table></div>
       <p class="note"><strong>解读提醒：</strong>任何单一指标都不能独立构成交易结论，应结合趋势、波动、价格位置和数据质量共同判断。</p>
     </div></section>
-    </main>
+
+  </main>
   <footer><div class="wrap">数据：本地行情快照｜指标：RSI / MACD / Bollinger Bands / ATR｜Task2 可通过 run_all.py 一键复现</div></footer>
 </body>
 </html>

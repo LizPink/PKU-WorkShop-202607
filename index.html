@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>PKU Workshop 202607｜量化交易任务集</title>
-  <style>
-:root {
+  <style>:root {
   --ink:#172033;
   --muted:#64748b;
   --line:#dbe4ee;
@@ -19,7 +18,7 @@
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -98,60 +97,57 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   .nav-links a { padding:5px 9px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
-}
-</style>
+}</style>
 </head>
 <body>
   <header class="hero"><div class="wrap">
-    <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="Task1/web/index.html">TASK1</a><a href="Task2/web/index.html">TASK2</a><a href="Task3/web/index.html">TASK3</a><a href="Task4/web/index.html">TASK4</a></div></nav>
+    <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="Task1/web/index.html">TASK1</a><a href="Task2/web/index.html">TASK2</a><a href="Task3/web/index.html">TASK3</a><a href="Task4/web/index.html">TASK4</a><a href="TASK5/web/index.html">TASK5</a><a href="TASK6/web/index.html">TASK6</a></div></nav>
     <div class="tag">PKU WORKSHOP · 202607</div>
     <h1>量化交易工作坊<br>从数据到策略与风控</h1>
-    <p>四个逐步递进的任务：行情数据引擎、数据诊断与指标、双均线策略，以及海龟交易法则。</p>
+    <p>六个逐步递进的任务：行情数据、技术指标、规则策略、风险控制、机器学习分类与量化选股。</p>
   </div></header>
   <main>
     <div class="wrap metrics">
-      <div class="metric"><span>课程任务</span><strong>4 个</strong></div>
+      <div class="metric"><span>课程任务</span><strong>6 个</strong></div>
       <div class="metric"><span>数据与诊断</span><strong>Task1–2</strong></div>
-      <div class="metric"><span>策略与回测</span><strong>Task3–4</strong></div>
-      <div class="metric"><span>统一交付</span><strong>Web + Notebook</strong></div>
+      <div class="metric"><span>规则策略</span><strong>Task3–4</strong></div>
+      <div class="metric"><span>机器学习</span><strong>Task5–6</strong></div>
     </div>
-    <section><div class="wrap"><h2>学习路径</h2><p class="section-lede">从可靠行情数据出发，逐步完成指标构建、趋势策略和风险控制。</p><div class="grid two"><article class="card">
+    <section><div class="wrap"><h2>学习路径</h2><p class="section-lede">从可靠行情数据出发，逐步完成指标构建、规则策略、风险控制与机器学习决策。</p><div class="grid two"><article class="card">
               <span class="tag">TASK1 · 数据引擎</span>
               <h3>寒武纪行情获取与复权处理</h3>
-              <p>从行情接口到本地CSV快照，统一日期、价格、成交量与前复权序列。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task1/web/index.html">打开网页</a>
-                <a class="pill" href="Task1/Task1_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
+              <p>从行情接口到本地 CSV 快照，统一日期、价格、成交量与前复权序列。</p>
+              <div class="pill-row"><a class="pill" href="Task1/web/index.html">打开网页</a><a class="pill" href="Task1/Task1_process_walkthrough.ipynb">查看 Notebook</a></div>
             </article><article class="card">
               <span class="tag">TASK2 · 指标诊断</span>
               <h3>数据诊断与技术指标构建</h3>
-              <p>检查数据质量与分布，计算RSI、MACD、布林带和ATR。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task2/web/index.html">打开网页</a>
-                <a class="pill" href="Task2/Task2_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
+              <p>检查数据质量与分布，计算 RSI、MACD、布林带和 ATR。</p>
+              <div class="pill-row"><a class="pill" href="Task2/web/index.html">打开网页</a><a class="pill" href="Task2/Task2_process_walkthrough.ipynb">查看 Notebook</a></div>
             </article><article class="card">
               <span class="tag">TASK3 · 趋势策略</span>
               <h3>双均线策略与跨行业回测</h3>
               <p>使用金叉、死叉构建趋势跟踪策略，并比较股票、行业和均线参数。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task3/web/index.html">打开网页</a>
-                <a class="pill" href="Task3/Task3_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
+              <div class="pill-row"><a class="pill" href="Task3/web/index.html">打开网页</a><a class="pill" href="Task3/Task3_process_walkthrough.ipynb">查看 Notebook</a></div>
             </article><article class="card">
               <span class="tag">TASK4 · 风险控制</span>
               <h3>海龟交易策略与参数研究</h3>
               <p>结合高低点通道、Wilder ATR、风险定仓和止损完成样本外回测。</p>
-              <div class="pill-row">
-                <a class="pill" href="Task4/web/index.html">打开网页</a>
-                <a class="pill" href="Task4/Task4_process_walkthrough.ipynb">查看 Notebook</a>
-              </div>
+              <div class="pill-row"><a class="pill" href="Task4/web/index.html">打开网页</a><a class="pill" href="Task4/Task4_process_walkthrough.ipynb">查看 Notebook</a></div>
+            </article><article class="card">
+              <span class="tag">TASK5 · 机器学习分类</span>
+              <h3>AI 交易引擎算法实验</h3>
+              <p>比较逻辑回归、决策树与随机森林，用混淆矩阵、ROC 和 AUC 评估分类效果。</p>
+              <div class="pill-row"><a class="pill" href="TASK5/web/index.html">打开网页</a><a class="pill" href="TASK5/outputs/metrics.csv">查看指标</a><a class="pill" href="TASK5/report/李子平-TASK5.pdf">查看 PDF</a></div>
+            </article><article class="card">
+              <span class="tag">TASK6 · 机器学习选股</span>
+              <h3>智能决策者量化策略</h3>
+              <p>用 18 个因子预测下一季度收益排序，构建 Top 30 组合并完成扩展窗口回测。</p>
+              <div class="pill-row"><a class="pill" href="TASK6/web/index.html">打开网页</a><a class="pill" href="TASK6/outputs/backtest_metrics.csv">查看指标</a><a class="pill" href="TASK6/report/李子平-TASK6.pdf">查看 PDF</a></div>
             </article></div></div></section>
     <section><div class="wrap"><h2>统一的研究口径</h2><div class="grid">
-      <article class="card"><h3>可复现</h3><p>每个任务保留代码、数据快照、Notebook、图表和静态网页，可从本地重新生成。</p></article>
-      <article class="card"><h3>防止前视偏差</h3><p>策略信号使用已知历史信息，并将普通收盘信号错后一交易日执行。</p></article>
-      <article class="card"><h3>收益与风险并重</h3><p>同时观察累计回报、最大回撤、夏普比率、交易成本和买入持有基准。</p></article>
+      <article class="card"><h3>可复现</h3><p>每个任务保留代码、数据快照、Notebook、图表、报告或静态网页，可从本地重新生成。</p></article>
+      <article class="card"><h3>控制前视偏差</h3><p>策略信号使用当时已知信息，训练与测试按时间划分，并明确交易执行时点。</p></article>
+      <article class="card"><h3>收益与风险并重</h3><p>同时观察收益、回撤、风险调整指标、交易成本和可比基准。</p></article>
     </div><p class="note">本项目用于课程教学和研究演示，不构成投资建议。</p></div></section>
     </main>
   <footer><div class="wrap">PKU Workshop 202607｜Python / pandas / Matplotlib｜GitHub Pages 静态成果入口</div></footer>

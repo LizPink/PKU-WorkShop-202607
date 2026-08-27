@@ -1,0 +1,16 @@
+{
+  "source": "AkShare 1.18.64; CSI index constituent list; Eastmoney/Tencent backward-adjusted daily history",
+  "price_adjustment": "hfq (backward adjusted)",
+  "index_code": "000300",
+  "constituent_selection": "current constituents as returned on fetch date",
+  "fetched_at": "2026-07-18T00:08:38+08:00",
+  "requested_start": "20150101",
+  "requested_end": "20260705",
+  "requested_stocks": 120,
+  "successful_stocks": 120,
+  "daily_rows": 294312,
+  "min_trade_date": "2015-01-05",
+  "max_trade_date": "2026-07-03",
+  "failed_stocks": [],
+  "known_limitation": "The constituent list is current rather than point-in-time, so historical results have survivorship/selection bias."
+}

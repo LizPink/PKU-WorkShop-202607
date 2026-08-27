@@ -1,0 +1,19 @@
+{
+  "dataset_name": "scikit-learn breast cancer Wisconsin diagnostic dataset",
+  "source": "sklearn.datasets.load_breast_cancer",
+  "samples": 569,
+  "features": 30,
+  "missing_values": 0,
+  "duplicate_feature_rows": 0,
+  "positive_class": "恶性（malignant）= 1",
+  "negative_class": "良性（benign）= 0",
+  "original_sklearn_encoding": "恶性（malignant）= 0，良性（benign）= 1",
+  "train_samples": 455,
+  "test_samples": 114,
+  "test_size": 0.2,
+  "stratified_split": true,
+  "random_state": 42,
+  "data_as_of": "scikit-learn 1.9.0 bundled dataset",
+  "python_version": "3.12.13",
+  "platform": "Windows-11-10.0.26200-SP0"
+}

@@ -1,0 +1,4 @@
+﻿split,quarter_start,quarter_end,quarters,rows,stocks
+train,2016Q1,2023Q1,29,2851,114
+validation,2023Q2,2024Q1,4,471,119
+test,2024Q2,2026Q1,8,959,120

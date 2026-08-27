@@ -1,0 +1,14 @@
+{
+  "ridge": {
+    "alpha": 1.0
+  },
+  "decision_tree": {
+    "max_depth": 3,
+    "min_samples_leaf": 10
+  },
+  "random_forest": {
+    "max_depth": 5,
+    "max_features": 0.7,
+    "min_samples_leaf": 10
+  }
+}

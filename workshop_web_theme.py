@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import re
 from html import escape
+from pathlib import Path
+from typing import Iterable
 
 
 WORKSHOP_CSS = """
@@ -17,7 +20,7 @@ WORKSHOP_CSS = """
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -97,30 +100,38 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-"""
+""".strip()
 
 
-TASKS = (
-    ("TASK1", "../../Task1/web/index.html"),
-    ("TASK2", "../../Task2/web/index.html"),
-    ("TASK3", "../../Task3/web/index.html"),
-    ("TASK4", "../../Task4/web/index.html"),
-)
+def task_path(task: int, *, root_prefix: str = "../..") -> str:
+    directory = f"TASK{task}" if task >= 5 else f"Task{task}"
+    return f"{root_prefix}/{directory}/web/index.html" if root_prefix else f"{directory}/web/index.html"
 
 
-def task_navigation(current_task: int, *, root_prefix: str = "../..") -> str:
+def render_task_nav(current_task: int, *, root_prefix: str = "../..") -> str:
     links = []
-    for index, (label, href) in enumerate(TASKS, start=1):
-        normalized_href = href.removeprefix("../..")
-        href = f"{root_prefix}{normalized_href}" if root_prefix else normalized_href.lstrip("/")
-        active = ' class="active" aria-current="page"' if index == current_task else ""
-        links.append(f'<a href="{href}"{active}>{label}</a>')
+    for task in range(1, 7):
+        active = ' class="active" aria-current="page"' if task == current_task else ""
+        links.append(f'<a href="{task_path(task, root_prefix=root_prefix)}"{active}>TASK{task}</a>')
     return (
         '<nav class="task-nav" aria-label="工作坊任务导航">'
         '<div class="brand">PKU Workshop · Quantitative Trading</div>'
         f'<div class="nav-links">{"".join(links)}</div>'
-        '</nav>'
+        "</nav>"
     )
+
+
+def render_hero(current_task: int, title: str, subtitle: str, *, class_name: str = "hero") -> str:
+    return f"""
+  <header class="{class_name}">
+    <div class="wrap">
+      {render_task_nav(current_task)}
+      <div class="tag">PKU WORKSHOP · TASK{current_task}</div>
+      <h1>{title}</h1>
+      <p>{subtitle}</p>
+    </div>
+  </header>
+""".strip()
 
 
 def render_page(
@@ -132,27 +143,108 @@ def render_page(
     body_html: str,
     footer_text: str,
 ) -> str:
-    task_label = f"PKU WORKSHOP · TASK{current_task}"
-    return f"""<!doctype html>
+    html = f"""<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>{escape(document_title)}</title>
-  <style>{WORKSHOP_CSS}</style>
+  <style>
+{WORKSHOP_CSS}
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="wrap">
-      {task_navigation(current_task)}
-      <div class="tag">{task_label}</div>
-      <h1>{hero_title}</h1>
-      <p>{escape(hero_subtitle)}</p>
-    </div>
-  </header>
-  <main>{body_html}</main>
-  <footer><div class="wrap">{escape(footer_text)}</div></footer>
+  {render_hero(current_task, hero_title, hero_subtitle)}
+  <main>
+{body_html}
+  </main>
+  <footer><div class="wrap">{footer_text}</div></footer>
 </body>
 </html>
 """
+    return "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
+
+
+def render_metrics(metrics: Iterable[tuple[str, str]]) -> str:
+    cards = "".join(
+        f'<div class="metric"><span>{escape(label)}</span><strong>{escape(value)}</strong></div>'
+        for label, value in metrics
+    )
+    return f'<div class="wrap metrics workshop-metrics">{cards}</div>'
+
+
+PORTABLE_REPORT_OVERRIDE_CSS = f"""
+{WORKSHOP_CSS}
+.workshop-hero {{ padding:24px 0 58px; background:linear-gradient(135deg,#0f172a,#173b76); color:white; }}
+.workshop-hero .tag {{ margin-bottom:16px; }}
+.workshop-hero h1 {{ font-size:clamp(34px,5vw,58px); line-height:1.12; margin:0; letter-spacing:-.03em; max-width:900px; }}
+.workshop-hero p {{ max-width:840px; color:#dbeafe; font-size:18px; margin:16px 0 0; }}
+:root {{ color-scheme:light!important; --portable-canvas:#f4f7fb!important; --portable-surface:#fff!important; --portable-surface-subtle:#eaf1fb!important; --portable-ink:#172033!important; --portable-muted:#64748b!important; --portable-tertiary:#64748b!important; --portable-table-text:#475569!important; --portable-border:#dbe4ee!important; --portable-accent:#2563eb!important; }}
+body {{ background:#f4f7fb!important; color:#172033!important; }}
+.portable-fallback {{ width:min(1180px,calc(100% - 32px))!important; max-width:none!important; margin:0 auto!important; padding:36px 0 72px!important; }}
+.portable-page-header {{ display:none!important; }}
+.portable-block-stack {{ display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:18px!important; margin-top:0!important; }}
+.portable-layout-full {{ grid-column:1/-1!important; }}
+.portable-block[data-artifact-block-id="headline_metrics"] {{ display:none!important; }}
+.portable-markdown,.portable-content-card {{ padding:24px!important; border:1px solid #dbe4ee!important; border-radius:18px!important; background:#fff!important; box-shadow:0 10px 30px rgba(15,23,42,.06)!important; }}
+.portable-markdown h2,.portable-content-card h2 {{ margin:0 0 12px!important; color:#172033!important; font-size:28px!important; font-weight:700!important; line-height:1.3!important; }}
+.portable-markdown h3 {{ color:#172033!important; font-size:20px!important; font-weight:700!important; }}
+.portable-markdown p,.portable-markdown li,.portable-visual-header p {{ color:#475569!important; line-height:1.7!important; }}
+.portable-metric-card {{ border:1px solid #dbe4ee!important; border-radius:18px!important; background:#fff!important; box-shadow:0 10px 30px rgba(15,23,42,.06)!important; }}
+.portable-table-scroll {{ border:1px solid #dbe4ee!important; border-radius:14px!important; }}
+.portable-table-scroll th {{ background:#eaf1fb!important; color:#334155!important; }}
+.portable-custom-html iframe {{ border-radius:12px!important; }}
+.portable-sources {{ padding:24px!important; border:1px solid #dbe4ee!important; border-radius:18px!important; background:#fff!important; }}
+.workshop-footer {{ padding:0 0 48px; color:#64748b; font-size:13px; }}
+@media(max-width:760px) {{
+  .portable-fallback {{ width:min(100% - 28px,1180px)!important; padding-top:28px!important; }}
+  .portable-block-stack {{ grid-template-columns:1fr!important; gap:14px!important; }}
+  .portable-layout-full {{ grid-column:1!important; }}
+  .portable-markdown,.portable-content-card {{ padding:20px!important; }}
+  .workshop-hero p {{ font-size:16px; }}
+}}
+""".strip()
+
+
+def restyle_portable_report(
+    path: Path,
+    *,
+    current_task: int,
+    hero_title: str,
+    hero_subtitle: str,
+    metrics: Iterable[tuple[str, str]],
+    footer_text: str,
+) -> None:
+    html = path.read_text(encoding="utf-8")
+    html = re.sub(
+        r'<style data-workshop-theme="true">.*?</style>',
+        "",
+        html,
+        flags=re.DOTALL,
+    )
+    html = re.sub(
+        r'<header class="workshop-hero">.*?</header>\s*<div class="wrap metrics workshop-metrics">.*?</div>\s*',
+        "",
+        html,
+        flags=re.DOTALL,
+    )
+    html = re.sub(
+        r'<footer class="workshop-footer">.*?</footer>\s*',
+        "",
+        html,
+        flags=re.DOTALL,
+    )
+    html = re.sub(
+        r'<meta name="color-scheme" content="[^"]+"\s*/?>',
+        '<meta name="color-scheme" content="light" />',
+        html,
+        count=1,
+    )
+    style = f'<style data-workshop-theme="true">\n{PORTABLE_REPORT_OVERRIDE_CSS}\n</style>\n'
+    html = html.replace("</head>", f"{style}</head>", 1)
+    header = render_hero(current_task, hero_title, hero_subtitle, class_name="workshop-hero")
+    html = html.replace("<body>", f"<body>\n{header}\n{render_metrics(metrics)}", 1)
+    footer = f'<footer class="workshop-footer"><div class="wrap">{escape(footer_text)}</div></footer>'
+    html = html.replace("</body>", f"{footer}\n</body>", 1)
+    path.write_text(html, encoding="utf-8")

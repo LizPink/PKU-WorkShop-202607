@@ -1,0 +1,260 @@
+[
+  {
+    "check": "文件存在：metrics.csv",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\metrics.csv"
+  },
+  {
+    "check": "文件存在：predictions.csv",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\predictions.csv"
+  },
+  {
+    "check": "文件存在：split_summary.csv",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\split_summary.csv"
+  },
+  {
+    "check": "文件存在：roc_curve_points.csv",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\roc_curve_points.csv"
+  },
+  {
+    "check": "文件存在：data_quality.json",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\data_quality.json"
+  },
+  {
+    "check": "文件存在：model_parameters.json",
+    "passed": true,
+    "severity": "High",
+    "evidence": "C:\\Users\\13377\\Desktop\\PKU-WorkShop-202607\\TASK5\\outputs\\model_parameters.json"
+  },
+  {
+    "check": "测试集样本数为 114",
+    "passed": true,
+    "severity": "High",
+    "evidence": "实际 114 条"
+  },
+  {
+    "check": "数据集无缺失值",
+    "passed": true,
+    "severity": "High",
+    "evidence": "缺失值 0 个"
+  },
+  {
+    "check": "三个模型均有评价结果",
+    "passed": true,
+    "severity": "High",
+    "evidence": "logistic_regression, decision_tree, random_forest"
+  },
+  {
+    "check": "预测结果包含两个类别",
+    "passed": true,
+    "severity": "High",
+    "evidence": "类别数 2"
+  },
+  {
+    "check": "逻辑回归 accuracy 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.97368421，复算值=0.97368421"
+  },
+  {
+    "check": "逻辑回归 precision 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.97560976，复算值=0.97560976"
+  },
+  {
+    "check": "逻辑回归 recall 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.95238095，复算值=0.95238095"
+  },
+  {
+    "check": "逻辑回归 specificity 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.98611111，复算值=0.98611111"
+  },
+  {
+    "check": "逻辑回归 f1 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.96385542，复算值=0.96385542"
+  },
+  {
+    "check": "逻辑回归 roc_auc 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.99603175，复算值=0.99603175"
+  },
+  {
+    "check": "逻辑回归 混淆矩阵计数一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "TN=71, FP=1, FN=2, TP=40"
+  },
+  {
+    "check": "逻辑回归 概率在 [0,1] 内",
+    "passed": true,
+    "severity": "High",
+    "evidence": "min=0.000000, max=1.000000"
+  },
+  {
+    "check": "逻辑回归 AUC 区间包含点估计",
+    "passed": true,
+    "severity": "Medium",
+    "evidence": "95% CI=[0.9872, 1.0000]，AUC=0.9960"
+  },
+  {
+    "check": "决策树 accuracy 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.91228070，复算值=0.91228070"
+  },
+  {
+    "check": "决策树 precision 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.90000000，复算值=0.90000000"
+  },
+  {
+    "check": "决策树 recall 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.85714286，复算值=0.85714286"
+  },
+  {
+    "check": "决策树 specificity 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.94444444，复算值=0.94444444"
+  },
+  {
+    "check": "决策树 f1 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.87804878，复算值=0.87804878"
+  },
+  {
+    "check": "决策树 roc_auc 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.92030423，复算值=0.92030423"
+  },
+  {
+    "check": "决策树 混淆矩阵计数一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "TN=68, FP=4, FN=6, TP=36"
+  },
+  {
+    "check": "决策树 概率在 [0,1] 内",
+    "passed": true,
+    "severity": "High",
+    "evidence": "min=0.000000, max=1.000000"
+  },
+  {
+    "check": "决策树 AUC 区间包含点估计",
+    "passed": true,
+    "severity": "Medium",
+    "evidence": "95% CI=[0.8466, 0.9789]，AUC=0.9203"
+  },
+  {
+    "check": "随机森林 accuracy 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.97368421，复算值=0.97368421"
+  },
+  {
+    "check": "随机森林 precision 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=1.00000000，复算值=1.00000000"
+  },
+  {
+    "check": "随机森林 recall 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.92857143，复算值=0.92857143"
+  },
+  {
+    "check": "随机森林 specificity 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=1.00000000，复算值=1.00000000"
+  },
+  {
+    "check": "随机森林 f1 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.96296296，复算值=0.96296296"
+  },
+  {
+    "check": "随机森林 roc_auc 独立复算一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "保存值=0.99735450，复算值=0.99735450"
+  },
+  {
+    "check": "随机森林 混淆矩阵计数一致",
+    "passed": true,
+    "severity": "High",
+    "evidence": "TN=72, FP=0, FN=3, TP=39"
+  },
+  {
+    "check": "随机森林 概率在 [0,1] 内",
+    "passed": true,
+    "severity": "High",
+    "evidence": "min=0.000000, max=1.000000"
+  },
+  {
+    "check": "随机森林 AUC 区间包含点估计",
+    "passed": true,
+    "severity": "Medium",
+    "evidence": "95% CI=[0.9910, 1.0000]，AUC=0.9974"
+  },
+  {
+    "check": "分层划分后类别比例差小于 1 个百分点",
+    "passed": true,
+    "severity": "Medium",
+    "evidence": "最大差异=0.5205%"
+  },
+  {
+    "check": "统计图可读：figure_1_class_distribution.png",
+    "passed": true,
+    "severity": "High",
+    "evidence": "1509×1030px，58243 bytes"
+  },
+  {
+    "check": "统计图可读：figure_2_logistic_regression_confusion_matrix.png",
+    "passed": true,
+    "severity": "High",
+    "evidence": "1345×1097px，71244 bytes"
+  },
+  {
+    "check": "统计图可读：figure_3_decision_tree_confusion_matrix.png",
+    "passed": true,
+    "severity": "High",
+    "evidence": "1345×1097px，73584 bytes"
+  },
+  {
+    "check": "统计图可读：figure_4_random_forest_confusion_matrix.png",
+    "passed": true,
+    "severity": "High",
+    "evidence": "1345×1097px，75096 bytes"
+  },
+  {
+    "check": "统计图可读：figure_5_roc_curves.png",
+    "passed": true,
+    "severity": "High",
+    "evidence": "1535×1226px，125563 bytes"
+  }
+]

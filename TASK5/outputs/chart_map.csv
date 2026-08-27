@@ -1,0 +1,6 @@
+﻿figure,section,question,family,chart_type,fields,takeaway,palette,artifact
+图 1,数据划分,分层抽样是否保持类别结构,Comparison,grouped bar,"split, class_name, count",训练集与测试集的良性/恶性比例基本一致,blue + gold + neutrals,figure_1_class_distribution.png
+图 2,模型评价,逻辑回归在固定阈值下产生了哪些正确与错误分类,Matrix,confusion matrix heatmap,"true_label, predicted_label, count",同时查看 TN、FP、FN、TP，避免只依赖准确率,single blue root,figure_2_logistic_regression_confusion_matrix.png
+图 3,模型评价,决策树在固定阈值下产生了哪些正确与错误分类,Matrix,confusion matrix heatmap,"true_label, predicted_label, count",同时查看 TN、FP、FN、TP，避免只依赖准确率,single blue root,figure_3_decision_tree_confusion_matrix.png
+图 4,模型评价,随机森林在固定阈值下产生了哪些正确与错误分类,Matrix,confusion matrix heatmap,"true_label, predicted_label, count",同时查看 TN、FP、FN、TP，避免只依赖准确率,single blue root,figure_4_random_forest_confusion_matrix.png
+图 5,ROC/AUC,三个模型跨阈值的区分能力如何,Uncertainty & Benchmark,multi-series ROC line,"fpr, tpr, model, roc_auc",曲线越靠左上且 AUC 越高，排序区分能力越强,blue + gold + pink + neutral benchmark,figure_5_roc_curves.png

@@ -19,7 +19,7 @@
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -99,18 +99,19 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-</style>
+  </style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html" class="active" aria-current="page">TASK3</a><a href="../../Task4/web/index.html">TASK4</a></div></nav>
+      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html" class="active" aria-current="page">TASK3</a><a href="../../Task4/web/index.html">TASK4</a><a href="../../TASK5/web/index.html">TASK5</a><a href="../../TASK6/web/index.html">TASK6</a></div></nav>
       <div class="tag">PKU WORKSHOP · TASK3</div>
       <h1>策略首秀：双均线<br>捕捉趋势与波动</h1>
       <p>用明确的金叉、死叉规则完成跨行业股票回测，并从累计回报、最大回撤和夏普比率评价策略。</p>
     </div>
   </header>
   <main>
+
     <div class="wrap metrics">
       <div class="metric"><span>股票池</span><strong>10 只</strong></div>
       <div class="metric"><span>行业覆盖</span><strong>5 个</strong></div>
@@ -447,7 +448,8 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
     </tr>
   </tbody>
 </table></div><p class="note">股票池按当前代表性人工选择，存在幸存者偏差；历史最优参数也可能过拟合。本页用于教学与研究演示，不构成投资建议。</p></div></section>
-    </main>
+
+  </main>
   <footer><div class="wrap">数据：TuShare日线校验与前复权本地快照｜回测：Python / pandas｜Task3 可通过 run_all.py 一键复现</div></footer>
 </body>
 </html>

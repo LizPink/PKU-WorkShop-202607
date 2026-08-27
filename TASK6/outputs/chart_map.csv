@@ -1,0 +1,9 @@
+﻿figure,section,question,family,chart_type,fields,takeaway,palette,artifact
+图 1,样本与划分,季度样本覆盖是否稳定,Trend,line,"quarter, stock_count",识别样本覆盖和训练/验证/测试边界,blue + gold/pink context,figure_1_sample_coverage.png
+图 2,因子,因子是否高度冗余,Matrix,heatmap,factor ranks,识别高相关因子组,diverging blue/orange,figure_2_factor_correlation.png
+图 3,模型,预测排序逐季度是否稳定,Trend + benchmark,multi-line,"quarter, model, rank_ic",比较季度 Rank IC 及正负方向,blue + gold + pink,figure_3_quarterly_rank_ic.png
+图 4,策略比较,哪个模型的季度净超额更高,Comparison,horizontal bar,"model, mean net excess",比较模型经济结果,model categorical,figure_4_model_excess_return.png
+图 5,回测,策略累计趋势是否跑赢基准,Trend,two-line,"quarter, strategy_nav, benchmark_nav",比较累计净值,blue + neutral,figure_5_cumulative_nav.png
+图 6,回测,策略逐季度如何相对市场表现,Comparison,grouped bar,"quarter, returns",展示逐期差异,blue + gold,figure_6_quarterly_returns.png
+图 7,风险,策略回撤与基准有何差异,Trend,two-line + fill,"quarter, drawdown",展示峰值损失,blue + neutral,figure_7_drawdown.png
+图 8,解释,随机森林主要依据哪些因子,Ranking,horizontal bar,"feature, importance",展示前 12 项重要度,olive single-root,figure_8_random_forest_feature_importance.png

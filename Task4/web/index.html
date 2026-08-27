@@ -19,7 +19,7 @@
   --bg:#f4f7fb;
 }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; color-scheme:light; }
 body {
   margin:0;
   font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,sans-serif;
@@ -99,18 +99,19 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
   section { padding:34px 0; }
   h2 { font-size:24px; }
 }
-</style>
+  </style>
 </head>
 <body>
   <header class="hero">
     <div class="wrap">
-      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html" class="active" aria-current="page">TASK4</a></div></nav>
+      <nav class="task-nav" aria-label="工作坊任务导航"><div class="brand">PKU Workshop · Quantitative Trading</div><div class="nav-links"><a href="../../Task1/web/index.html">TASK1</a><a href="../../Task2/web/index.html">TASK2</a><a href="../../Task3/web/index.html">TASK3</a><a href="../../Task4/web/index.html" class="active" aria-current="page">TASK4</a><a href="../../TASK5/web/index.html">TASK5</a><a href="../../TASK6/web/index.html">TASK6</a></div></nav>
       <div class="tag">PKU WORKSHOP · TASK4</div>
       <h1>复刻传奇：海龟法则<br>突破、波动与风险控制</h1>
       <p>用高低点通道识别趋势，以Wilder ATR确定止损和仓位，并通过样本外回测观察参数与股票差异。</p>
     </div>
   </header>
   <main>
+
     <div class="wrap metrics">
       <div class="metric"><span>股票池</span><strong>10 只</strong></div>
       <div class="metric"><span>行业覆盖</span><strong>5 个</strong></div>
@@ -365,7 +366,8 @@ footer { padding:32px 0 48px; color:var(--muted); font-size:13px; }
       <article class="card"><h3>更适合</h3><p>趋势持续、流动性较好、可以跨股票分散，并能严格执行风险预算和止损的场景。</p></article>
       <article class="card"><h3>需要谨慎</h3><p>窄幅震荡、频繁跳空、涨跌停或成交受限的个股；股票池也存在幸存者偏差。</p></article>
     </div><p class="note">本页使用前复权日线、固定成本和小数股教学假设，结果用于策略研究演示，不构成投资建议。</p></div></section>
-    </main>
+
+  </main>
   <footer><div class="wrap">数据：10只A股前复权日线本地快照｜策略：Turtle Channel / Wilder ATR｜Task4 可通过 run_all.py 一键复现</div></footer>
 </body>
 </html>
